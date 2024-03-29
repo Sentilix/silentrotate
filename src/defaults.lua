@@ -1,7 +1,7 @@
-local SilentRotate = select(2, ...)
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local LoathebRotate = select(2, ...)
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
-function SilentRotate:LoadDefaults()
+function LoathebRotate:LoadDefaults()
 	self.defaults = {
 	    profile = {
 			-- Main windows, at least one always exists
@@ -25,19 +25,19 @@ function SilentRotate:LoadDefaults()
 			useClassColor = true,
 			useNameOutline = false,
 			prependIndex = false,
-			indexPrefixColor = {SilentRotate.colors.lightCyan:GetRGB()},
+			indexPrefixColor = {LoathebRotate.colors.lightCyan:GetRGB()},
 			appendGroup = false,
 			appendTarget = true,
 			appendTargetBuffOnly = false,
 			appendTargetNoGroup = true,
 			groupSuffix = L["DEFAULT_GROUP_SUFFIX_MESSAGE"],
-			groupSuffixColor = {SilentRotate.colors.lightCyan:GetRGB()},
+			groupSuffixColor = {LoathebRotate.colors.lightCyan:GetRGB()},
 
 			-- Background
-			neutralBackgroundColor = {SilentRotate.colors.lightGray:GetRGB()},
-			activeBackgroundColor  = {SilentRotate.colors.purple:GetRGB()},
-			deadBackgroundColor    = {SilentRotate.colors.red:GetRGB()},
-			offlineBackgroundColor = {SilentRotate.colors.darkGray:GetRGB()},
+			neutralBackgroundColor = {LoathebRotate.colors.lightGray:GetRGB()},
+			activeBackgroundColor  = {LoathebRotate.colors.purple:GetRGB()},
+			deadBackgroundColor    = {LoathebRotate.colors.red:GetRGB()},
+			offlineBackgroundColor = {LoathebRotate.colors.darkGray:GetRGB()},
 
 			-- Sounds
 			enableNextToTranqSound = true,
@@ -65,7 +65,7 @@ function SilentRotate:LoadDefaults()
 	
 	}
 
-	for modeName, mode in pairs(SilentRotate.modes) do
+	for modeName, mode in pairs(LoathebRotate.modes) do
 		-- Set config for announce messages
 		local assignMessage = function(keyAddendum, translationAddendum)
 			local key = "announce"..mode.modeNameFirstUpper..keyAddendum.."Message"
@@ -101,10 +101,10 @@ function SilentRotate:LoadDefaults()
 	if not self.defaults.profile.currentMode then
 		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 			self.defaults.profile.loathebModeButton = true
-			self.defaults.profile.currentMode = SilentRotate.modes.loatheb.modeName
+			self.defaults.profile.currentMode = LoathebRotate.modes.loatheb.modeName
 		else
 			self.defaults.profile.misdiModeButton = true
-			self.defaults.profile.currentMode = SilentRotate.modes.misdi.modeName
+			self.defaults.profile.currentMode = LoathebRotate.modes.misdi.modeName
 		end
 	end
 end

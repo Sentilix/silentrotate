@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
-    <Name>SilentRotate</Name>
+    <Name>LoathebRotate</Name>
     <ProjectGuid>{917c46cb-9c7b-4aa5-823b-9e5a8cf616eb}</ProjectGuid>
     <AssemblyName>silentrotate</AssemblyName>
     <RootNamespace>silentrotate</RootNamespace>
@@ -11,7 +11,6 @@
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include=".vscode\settings.json" />
     <Content Include="changelog.md" />
     <Content Include="libs\AceComm-3.0\AceComm-3.0.lua">
       <SubType>Code</SubType>
@@ -199,13 +198,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="README.md" />
-    <Content Include="SilentRotate.toc">
-      <SubType>TableOfContents</SubType>
-    </Content>
-    <Content Include="SilentRotate_Vanilla.toc">
-      <SubType>TableOfContents</SubType>
-    </Content>
-    <Content Include="SilentRotate_Wrath.toc">
+    <Content Include="LoathebRotate.toc">
       <SubType>TableOfContents</SubType>
     </Content>
     <Content Include="sounds\alarm.ogg" />
@@ -244,9 +237,6 @@
     <Content Include="src\modes.lua">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\pixel.lua">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="src\rightclick.lua">
       <SubType>Code</SubType>
     </Content>
@@ -259,7 +249,7 @@
     <Content Include="src\settings.lua">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\silentRotate.lua">
+    <Content Include="src\loathebRotate.lua">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\utils.lua">
@@ -285,7 +275,6 @@
     <Content Include="_curse\release_notes.html" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include=".vscode\" />
     <Folder Include="libs\" />
     <Folder Include="libs\AceComm-3.0\" />
     <Folder Include="libs\AceConfig-3.0\" />

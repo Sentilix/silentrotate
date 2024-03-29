@@ -1,7 +1,7 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("SilentRotate", "ruRU", false, false)
+local L = LibStub("AceLocale-3.0"):NewLocale("LoathebRotate", "ruRU", false, false)
 if not L then return end
-L["LOADED_MESSAGE"] = "SilentRotate загружен, введите /silentrotate для настройки"
-L["TRANQ_WINDOW_HIDDEN"] = "Окно SilentRotate скрыто. Введите /silentrotate toggle для отображения"
+L["LOADED_MESSAGE"] = "LoathebRotate загружен, введите /LoathebRotate для настройки"
+L["TRANQ_WINDOW_HIDDEN"] = "Окно LoathebRotate скрыто. Введите /LoathebRotate toggle для отображения"
 
     -- Buttons
 L["BUTTON_SETTINGS"] = "Settings"
@@ -14,7 +14,7 @@ L["BUTTON_CLEAR_HISTORY"] = "Clear"
     -- Settings
 L["SETTING_GENERAL"] = "Общие"
 L["SETTING_GENERAL_REPORT"] = "Пожалуйста о всех ошибках сообщайте на"
-L["SETTING_GENERAL_DESC"] = "Новое: Теперь SilentRotate проигрывает звук когда подходит ваша очередь! Добавлено несколько настроек отображения, чтобы сделать аддон менее навязчивым."
+L["SETTING_GENERAL_DESC"] = "Новое: Теперь LoathebRotate проигрывает звук когда подходит ваша очередь! Добавлено несколько настроек отображения, чтобы сделать аддон менее навязчивым."
 
 L["LOCK_WINDOW"] = "Закрепить окно"
 L["LOCK_WINDOW_DESC"] = "Препятствует перемещению окна с помощью мыши"
@@ -24,8 +24,8 @@ L["DO_NOT_SHOW_WHEN_JOINING_RAID"] = "Не показывать окно во в
 L["DO_NOT_SHOW_WHEN_JOINING_RAID_DESC"] = "Выберите если вы не хотите видеть окно каждый раз когда присоединяетесь к рейду"
 L["SHOW_WHEN_TARGETING_BOSS"] = "Показывать окно только если ваша цель может быть усмирена"
 L["SHOW_WHEN_TARGETING_BOSS_DESC"] = "Показывать окно только если ваша цель может быть усмирена"
-L["WINDOW_LOCKED"] = "SilentRotate: Окно закреплено"
-L["WINDOW_UNLOCKED"] = "SilentRotate: Окно откреплено"
+L["WINDOW_LOCKED"] = "LoathebRotate: Окно закреплено"
+L["WINDOW_UNLOCKED"] = "LoathebRotate: Окно откреплено"
 
 L["TEST_MODE_HEADER"] = "Тестовый режим"
 L["ENABLE_ARCANE_SHOT_TESTING"] = "Тестовый режим"
@@ -189,7 +189,7 @@ L["SETTING_SOUNDS"] = "Звуки"
 L["ENABLE_NEXT_TO_TRANQ_SOUND"] = "Проигрывать звук когда подходит ваша очередь"
 L["ENABLE_TRANQ_NOW_SOUND"] = "Проигрывать звук когда пора использовать Усмиряющий выстрел"
 L["TRANQ_NOW_SOUND_CHOICE"] = "Выберите звук для Усмиряющего выстрела"
-L["DBM_SOUND_WARNING"] = "DBM проигрывает звук для каждого Бешенства, из-за этого вы можете не устышать оповещение от SilentRotate. Рекомендуется выбрать хорошо различимый звук для SilentRotate или отключить оповещение от DBM"
+L["DBM_SOUND_WARNING"] = "DBM проигрывает звук для каждого Бешенства, из-за этого вы можете не устышать оповещение от LoathebRotate. Рекомендуется выбрать хорошо различимый звук для LoathebRotate или отключить оповещение от DBM"
 
     --- History
 L["SETTING_HISTORY"] = "History"
@@ -217,13 +217,13 @@ L["HISTORY_ASSIGN_PLAYER"] = "%s assigned %s to focus on %s."
 L["HISTORY_ASSIGN_NOBODY"] = "%s un-assigned %s."
 
     --- Icons
-L["DISPLAY_BLIND_ICON"] = "Show an icon for players without SilentRotate"
-L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other SilentRotate user."
+L["DISPLAY_BLIND_ICON"] = "Show an icon for players without LoathebRotate"
+L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other LoathebRotate user."
 L["DISPLAY_BLIND_ICON_TOOLTIP"] = "Show the blind icon tooltip"
 L["DISPLAY_BLIND_ICON_TOOLTIP_DESC"] = "You can disable this options to disable the tooltip while still having the icon"
 
     --- Tooltips
-L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use SilentRotate"
+L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use LoathebRotate"
 L["TOOLTIP_MAY_RUN_OUDATED_VERSION"] = "Or runs an outdated version, older than 0.7.0"
 L["TOOLTIP_DISABLE_SETTINGS"] = "(You can disable the icon and/or the tooltip in the settings)"
 L["TOOLTIP_EFFECT_REMAINING"] = "Effect remaining: %s"
@@ -247,7 +247,7 @@ L["DIALOG_ASSIGNMENT_CHANGE_FOCUS"] = "Change Focus"
 
     --- Notifications
 L["UPDATE_AVAILABLE"] = "A new version is available, please update to get the latest features."
-L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! SilentRotate may not work correctly between you and up-to-date players."
+L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! LoathebRotate may not work correctly between you and up-to-date players."
 
 L["VERSION_CHECK"] = "## Version check ##"
 L["VERSION_UNDETECTABLE"] = "Not installed or older than 0.7.0"

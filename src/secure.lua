@@ -1,4 +1,4 @@
-local SilentRotate = select(2, ...)
+local LoathebRotate = select(2, ...)
 
 -- Call secure function, if possible now
 -- Otherwise queue it for next time player goes out of combat
@@ -8,7 +8,7 @@ local SilentRotate = select(2, ...)
 --
 -- The unique name is used to overwrite a secure function to avoid calling
 -- secure functions that conflict with each other
-function SilentRotate:addSecureFunction(secFunc, secFuncName)
+function LoathebRotate:addSecureFunction(secFunc, secFuncName)
     if not InCombatLockdown() then
         secFunc()
         return
@@ -28,7 +28,7 @@ end
 -- Call all queued secure functions
 -- The queue is emptied afterwards
 -- Nothing is done if player is in combat
-function SilentRotate:callAllSecureFunctions()
+function LoathebRotate:callAllSecureFunctions()
     if type(self.secureFunctions) == 'table' and (not InCombatLockdown()) then
         for _, secFunc in pairs(self.secureFunctions) do
             secFunc()
@@ -44,7 +44,7 @@ end
 
     The button has no initial position, no initial size and no initial text
 ]]
-function SilentRotate:createDialogButton(widgetName, parent, isSecure)
+function LoathebRotate:createDialogButton(widgetName, parent, isSecure)
     local button = CreateFrame("Button", widgetName, parent, isSecure and "SecureActionButtonTemplate" or nil)
 
     button:SetNormalFontObject(GameFontNormal)
@@ -73,7 +73,7 @@ end
     .secondButton Button, nothing special
     .faders list of fade-from-white animations
 ]]
-function SilentRotate:createDialog(widgetName)
+function LoathebRotate:createDialog(widgetName)
     local spacing = 24
     local buttonWidth = 128
     local buttonHeight = 21
@@ -183,7 +183,7 @@ end
     @param eventName (optional) Name of an event to track
     @param eventFunc (optional) Callback to invoke for the tracked event; if it returns true, the dialog is closed
 ]]
-function SilentRotate:addSecureDialog(
+function LoathebRotate:addSecureDialog(
     widgetName,
     question,
     answer, secureType, secureAttr,

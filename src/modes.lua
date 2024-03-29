@@ -1,52 +1,52 @@
 local Addon = select(1, ...)
-local SilentRotate = select(2, ...)
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local LoathebRotate = select(2, ...)
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
 -- Get the mode from a mode name
 -- If modeName is nil, get the current mode
-function SilentRotate:getMode(modeName)
+function LoathebRotate:getMode(modeName)
     if not modeName then
-        modeName = SilentRotate.db.profile.currentMode
+        modeName = LoathebRotate.db.profile.currentMode
     end
 
     if modeName and modeName:sub(-1) == 'z' then -- All old mode names end with 'z'
-        modeName = SilentRotate.backwardCompatibilityModeMap[modeName] or modeName
+        modeName = LoathebRotate.backwardCompatibilityModeMap[modeName] or modeName
     end
 
     -- return the mode object, or TranqShot as the default mode if no mode is set
     if modeName then
-        local mode = SilentRotate.modes[modeName]
+        local mode = LoathebRotate.modes[modeName]
         if mode then -- mode may be nil when downgrading the addon version
             return mode
         end
     end
-    return SilentRotate.modes[SilentRotate.modes.tranqShot.modeName]
+    return LoathebRotate.modes[LoathebRotate.modes.tranqShot.modeName]
 end
 
 -- Activate the specific mode
-function SilentRotate:activateMode(modeName, mainFrame)
+function LoathebRotate:activateMode(modeName, mainFrame)
     local currentMode = self:getMode()
     local paramMode = self:getMode(modeName)
     if currentMode.modeName == paramMode.modeName then return end
 
     local oldFrame = mainFrame.modeFrames[currentMode.modeName]
     if oldFrame then
-        oldFrame.texture:SetColorTexture(SilentRotate.colors.darkBlue:GetRGB())
+        oldFrame.texture:SetColorTexture(LoathebRotate.colors.darkBlue:GetRGB())
     end
 
     local newFrame = mainFrame.modeFrames[modeName]
     if newFrame then
-        SilentRotate.db.profile.currentMode = modeName
-        newFrame.texture:SetColorTexture(SilentRotate.colors.blue:GetRGB())
-        SilentRotate:updateRaidStatus()
-        SilentRotate:enableRightClick(SilentRotate.modes[modeName] and SilentRotate.modes[modeName].assignable)
+        LoathebRotate.db.profile.currentMode = modeName
+        newFrame.texture:SetColorTexture(LoathebRotate.colors.blue:GetRGB())
+        LoathebRotate:updateRaidStatus()
+        LoathebRotate:enableRightClick(LoathebRotate.modes[modeName] and LoathebRotate.modes[modeName].assignable)
         local AceConfigDialog = LibStub("AceConfigDialog-3.0")
         AceConfigDialog:ConfigTableChanged("", Addon)
     end
 end
 
 -- Get the color associated to a specific mode
-function SilentRotate:getModeColor(mode)
+function LoathebRotate:getModeColor(mode)
     if type(mode.color) == 'string' then
         return mode.color
     elseif type(mode.color) == 'function' then
@@ -62,7 +62,7 @@ end
 -- Return true if the player is recommended for a specific mode
 -- If className is nil, the class is fetched from the unit
 -- If mode is nil, use the current mode instead
-function SilentRotate:isPlayerWanted(mode, unit, className)
+function LoathebRotate:isPlayerWanted(mode, unit, className)
     if className == nil then
         -- The 'select' result must be in parentheses to prevent argument bleeding
         className = (select(2,UnitClass(unit)))
@@ -95,7 +95,7 @@ end
 
 -- Return true if the spellId/spellName matches one of the spells of spellWanted
 -- spellWanted can be either a spell id, a spell name, a list of ids and names, or a function(spellId, spellName)
-function SilentRotate:isSpellInteresting(mode, spellId, spellName)
+function LoathebRotate:isSpellInteresting(mode, spellId, spellName)
     local spellWanted = mode.spell
 
     if not spellWanted then
@@ -126,7 +126,7 @@ end
 
 -- Get the default duration known for a specific mode
 -- If mode is nil, use the current mode instead
-function SilentRotate:getModeCooldown(modeName)
+function LoathebRotate:getModeCooldown(modeName)
     local mode = self:getMode(modeName)
 
     if mode and mode.cooldown then
@@ -143,7 +143,7 @@ end
 -- Get the default duration known for an effect (e.g. buff) given by a specific mode
 -- If mode is nil, use the current mode instead
 -- If the mode provides no effect, the returned duration is zero
-function SilentRotate:getModeEffectDuration(modeName)
+function LoathebRotate:getModeEffectDuration(modeName)
     local mode = self:getMode(modeName)
 
     if mode and mode.effectDuration then
@@ -158,7 +158,7 @@ function SilentRotate:getModeEffectDuration(modeName)
 end
 
 -- Each mode has a specific Broadcast text so that it does not conflict with other modes
-function SilentRotate:getBroadcastHeaderText()
+function LoathebRotate:getBroadcastHeaderText()
     local mode = self:getMode()
 
     if mode and type(mode.modeName) == 'string' then
@@ -169,9 +169,9 @@ function SilentRotate:getBroadcastHeaderText()
 end
 
 
-SilentRotate.modes = {}
+LoathebRotate.modes = {}
 
-SilentRotate.modes.tranqShot = {
+LoathebRotate.modes.tranqShot = {
     oldModeName = 'hunterz',
     default = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC,
     raidOnly = true,
@@ -183,18 +183,18 @@ SilentRotate.modes.tranqShot = {
     alertWhenFail = true,
     spell = function(self, spellId, spellName)
         return spellName == GetSpellInfo(19801) -- 'Tranquilizing Shot'
-            or spellName == GetSpellInfo(14287) and SilentRotate.testMode -- 'Arcane Shot'
+            or spellName == GetSpellInfo(14287) and LoathebRotate.testMode -- 'Arcane Shot'
     end,
     -- auraTest = nil,
     customCombatlogFunc = function(self, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, spellId, spellName)
-        if event == "SPELL_AURA_APPLIED" and SilentRotate:isBossFrenzy(spellName, sourceGUID) then
-            local historyMessage = string.format(SilentRotate:getHistoryPattern("HISTORY_TRANQSHOT_FRENZY"), sourceName, spellName)
-            SilentRotate:addHistoryMessage(historyMessage, self)
-            if SilentRotate:isPlayerNextTranq() then
-                SilentRotate:alertReactNow(self.modeName)
+        if event == "SPELL_AURA_APPLIED" and LoathebRotate:isBossFrenzy(spellName, sourceGUID) then
+            local historyMessage = string.format(LoathebRotate:getHistoryPattern("HISTORY_TRANQSHOT_FRENZY"), sourceName, spellName)
+            LoathebRotate:addHistoryMessage(historyMessage, self)
+            if LoathebRotate:isPlayerNextTranq() then
+                LoathebRotate:alertReactNow(self.modeName)
             end
-        elseif event == "UNIT_DIED" and SilentRotate:isTranqableBoss(destGUID) then
-            SilentRotate:resetRotation()
+        elseif event == "UNIT_DIED" and LoathebRotate:isTranqableBoss(destGUID) then
+            LoathebRotate:resetRotation()
         end
     end,
     targetGUID = function(self, sourceGUID, destGUID) return destGUID end,
@@ -209,7 +209,7 @@ SilentRotate.modes.tranqShot = {
     -- metadata = nil
 }
 
-SilentRotate.modes.loatheb = {
+LoathebRotate.modes.loatheb = {
     oldModeName = 'healerz',
     default = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC,
     raidOnly = true,
@@ -221,7 +221,7 @@ SilentRotate.modes.loatheb = {
     -- alertWhenFail = nil,
     -- spell = nil,
     auraTest = function(self, spellId, spellName)
-        return SilentRotate.testMode and spellId == 11196 -- 11196 is the spell ID of "Recently Bandaged"
+        return LoathebRotate.testMode and spellId == 11196 -- 11196 is the spell ID of "Recently Bandaged"
             or spellId == 29184 -- priest debuff
             or spellId == 29195 -- druid debuff
             or spellId == 29197 -- paladin debuff
@@ -241,7 +241,7 @@ SilentRotate.modes.loatheb = {
     -- metadata = nil
 }
 
-SilentRotate.modes.distract = {
+LoathebRotate.modes.distract = {
     oldModeName = 'roguez',
     default = false,
     raidOnly = false,
@@ -266,7 +266,7 @@ SilentRotate.modes.distract = {
     -- metadata = nil
 }
 
-SilentRotate.modes.fearWard = {
+LoathebRotate.modes.fearWard = {
     oldModeName = 'fearz',
     default = true,
     raidOnly = false,
@@ -291,7 +291,7 @@ SilentRotate.modes.fearWard = {
     -- metadata = nil
 }
 
-SilentRotate.modes.aoeTaunt = {
+LoathebRotate.modes.aoeTaunt = {
     oldModeName = 'tauntz',
     default = false,
     raidOnly = false,
@@ -319,7 +319,7 @@ SilentRotate.modes.aoeTaunt = {
     -- metadata = nil
 }
 
-SilentRotate.modes.grounding = {
+LoathebRotate.modes.grounding = {
     default = false,
     raidOnly = false,
     -- color = nil,
@@ -356,8 +356,8 @@ SilentRotate.modes.grounding = {
                 -- This event should always be triggered when the totem dies, in practice it is not always the case
                 if self.metadata.summons[destGUID].summoned then
                     self.metadata.summons[destGUID].summoned = false
-                    local historyMessage = string.format(SilentRotate:getHistoryPattern("HISTORY_GROUNDING_EXPIRE"), self.metadata.summons[destGUID].ownerName)
-                    SilentRotate:addHistoryMessage(historyMessage, self)
+                    local historyMessage = string.format(LoathebRotate:getHistoryPattern("HISTORY_GROUNDING_EXPIRE"), self.metadata.summons[destGUID].ownerName)
+                    LoathebRotate:addHistoryMessage(historyMessage, self)
                 end
             elseif sourceName and spellName then
                 -- Check if the caster is attacking to the totem
@@ -384,15 +384,15 @@ SilentRotate.modes.grounding = {
                 local isNowSummoned = totem.summoned
                 if wasSummoned ~= isNowSummoned then
                     local ownerGUID = totem.ownerGUID
-                    local hunter = SilentRotate:getHunter(ownerGUID)
+                    local hunter = LoathebRotate:getHunter(ownerGUID)
                     if hunter then
                         local historyMessage
                         if totem.killedWith then
-                            historyMessage = string.format(SilentRotate:getHistoryPattern("HISTORY_GROUNDING_ABSORB"), totem.ownerName, totem.killedWith, totem.killedBy)
+                            historyMessage = string.format(LoathebRotate:getHistoryPattern("HISTORY_GROUNDING_ABSORB"), totem.ownerName, totem.killedWith, totem.killedBy)
                         else
-                            historyMessage = string.format(SilentRotate:getHistoryPattern("HISTORY_GROUNDING_ABSORB_NOSPELL"), totem.ownerName, totem.killedBy)
+                            historyMessage = string.format(LoathebRotate:getHistoryPattern("HISTORY_GROUNDING_ABSORB_NOSPELL"), totem.ownerName, totem.killedBy)
                         end
-                        SilentRotate:addHistoryMessage(historyMessage, self)
+                        LoathebRotate:addHistoryMessage(historyMessage, self)
                     end
                 end
             end
@@ -414,8 +414,8 @@ SilentRotate.modes.grounding = {
                 local totem = self.metadata.summons[totemGUID]
                 if totem and totem.summoned then
                     totem.summoned = false
-                    local historyMessage = string.format(SilentRotate:getHistoryPattern("HISTORY_GROUNDING_CANCEL"), totem.ownerName, spellName)
-                    SilentRotate:addHistoryMessage(historyMessage, self)
+                    local historyMessage = string.format(LoathebRotate:getHistoryPattern("HISTORY_GROUNDING_CANCEL"), totem.ownerName, spellName)
+                    LoathebRotate:addHistoryMessage(historyMessage, self)
                 end
             end
         elseif (event == "UNIT_DIED") and destGUID and self.metadata.summoners[destGUID] then
@@ -424,8 +424,8 @@ SilentRotate.modes.grounding = {
             local totem = self.metadata.summons[totemGUID]
             if totem and totem.summoned then
                 totem.summoned = false
-                local historyMessage = string.format(SilentRotate:getHistoryPattern("HISTORY_GROUNDING_ORPHAN"), totem.ownerName)
-                SilentRotate:addHistoryMessage(historyMessage, self)
+                local historyMessage = string.format(LoathebRotate:getHistoryPattern("HISTORY_GROUNDING_ORPHAN"), totem.ownerName)
+                LoathebRotate:addHistoryMessage(historyMessage, self)
             end
         end
     end,
@@ -437,7 +437,7 @@ SilentRotate.modes.grounding = {
         local totem = self.metadata.summons[totemGUID]
         if not totemGUID or totem.summoned then
             -- Totem still active: display the group where it belongs
-            return hunter.subgroup and string.format(SilentRotate.db.profile.groupSuffix, hunter.subgroup)
+            return hunter.subgroup and string.format(LoathebRotate.db.profile.groupSuffix, hunter.subgroup)
         elseif totem.killedWith then
             -- Totem destroyed by spell: display the spell name only
             return totem.killedWith
@@ -450,14 +450,14 @@ SilentRotate.modes.grounding = {
         end
     end,
     customHistoryFunc = function(self, hunter, sourceName, destName, spellName, failed)
-        return string.format(SilentRotate:getHistoryPattern("HISTORY_GROUNDING_SUMMON"), sourceName, hunter.subgroup or 0)
+        return string.format(LoathebRotate:getHistoryPattern("HISTORY_GROUNDING_SUMMON"), sourceName, hunter.subgroup or 0)
     end,
     groupChangeFunc = function(self, hunter, oldgroup, newgroup)
         local totemGUID = self.metadata.summoners[hunter.GUID]
         local totem = self.metadata.summons[totemGUID]
         if totemGUID and totem.summoned then
-            local historyMessage = string.format(SilentRotate:getHistoryPattern("HISTORY_GROUNDING_CHANGE"), totem.ownerName, newgroup)
-            SilentRotate:addHistoryMessage(historyMessage, self)
+            local historyMessage = string.format(LoathebRotate:getHistoryPattern("HISTORY_GROUNDING_CHANGE"), totem.ownerName, newgroup)
+            LoathebRotate:addHistoryMessage(historyMessage, self)
         end
     end,
     announceArg = 'sourceGroup',
@@ -491,7 +491,7 @@ SilentRotate.modes.grounding = {
     },
 }
 
-SilentRotate.modes.brez = {
+LoathebRotate.modes.brez = {
     default = false,
     raidOnly = false,
     -- color = nil,
@@ -515,7 +515,7 @@ SilentRotate.modes.brez = {
     -- metadata = nil
 }
 
-SilentRotate.modes.innerv = {
+LoathebRotate.modes.innerv = {
     default = false,
     raidOnly = false,
     -- color = nil,
@@ -539,7 +539,7 @@ SilentRotate.modes.innerv = {
     -- metadata = nil
 }
 
-SilentRotate.modes.bop = {
+LoathebRotate.modes.bop = {
     default = false,
     raidOnly = false,
     -- color = nil,
@@ -563,7 +563,7 @@ SilentRotate.modes.bop = {
     -- metadata = nil
 }
 
-SilentRotate.modes.bof = {
+LoathebRotate.modes.bof = {
     default = false,
     raidOnly = false,
     -- color = nil,
@@ -587,7 +587,7 @@ SilentRotate.modes.bof = {
     -- metadata = nil
 }
 
-SilentRotate.modes.soulstone = {
+LoathebRotate.modes.soulstone = {
     default = false,
     raidOnly = false,
     -- color = nil,
@@ -614,7 +614,7 @@ SilentRotate.modes.soulstone = {
 -- Modes available for The Burning Crusade Classic
 if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
 
-SilentRotate.modes.misdi = {
+LoathebRotate.modes.misdi = {
     oldModeName = 'misdiz',
     default = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC,
     raidOnly = false,
@@ -639,7 +639,7 @@ SilentRotate.modes.misdi = {
     -- metadata = nil
 }
 
-SilentRotate.modes.bloodlust = {
+LoathebRotate.modes.bloodlust = {
     oldModeName = 'shamanz',
     default = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC,
     raidOnly = false,
@@ -658,7 +658,7 @@ SilentRotate.modes.bloodlust = {
     targetGUID = function(self, sourceGUID, destGUID) return sourceGUID end, -- Target is the caster itself
     buffName = function(self, spellId, spellName) return spellName end,
     buffCanReturn = false,
-    customTargetName = function(self, hunter, targetName) return hunter.subgroup and string.format(SilentRotate.db.profile.groupSuffix, hunter.subgroup) end,
+    customTargetName = function(self, hunter, targetName) return hunter.subgroup and string.format(LoathebRotate.db.profile.groupSuffix, hunter.subgroup) end,
     -- customHistoryFunc = nil,
     -- groupChangeFunc = nil,
     announceArg = 'sourceGroup',
@@ -667,7 +667,7 @@ SilentRotate.modes.bloodlust = {
     -- metadata = nil
 }
 
-SilentRotate.modes.soulwell = {
+LoathebRotate.modes.soulwell = {
     default = false,
     raidOnly = false,
     -- color = nil,
@@ -691,7 +691,7 @@ SilentRotate.modes.soulwell = {
     -- metadata = nil
 }
 
-SilentRotate.modes.scorpid = {
+LoathebRotate.modes.scorpid = {
     default = false,
     raidOnly = true,
     -- color = nil,
@@ -703,19 +703,19 @@ SilentRotate.modes.scorpid = {
     spell = GetSpellInfo(3043), -- Scorpid Sting
     -- auraTest = nil,
     customCombatlogFunc = function(self, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, spellId, spellName)
-        if SilentRotate:isBossInList(destGUID, SilentRotate.constants.scorpidableBosses) then
+        if LoathebRotate:isBossInList(destGUID, LoathebRotate.constants.scorpidableBosses) then
             if event == "SPELL_CAST_SUCCESS" and spellName == self.spell then
                 -- Schedule an alert for myself if I'm the next one in list
-                if SilentRotate:isPlayerNextTranq() then
+                if LoathebRotate:isPlayerNextTranq() then
                     if self.metadata.timerAlertSoon then
                         self.metadata.timerAlertSoon:Cancel()
                     end
                     self.metadata.timerAlertSoon = C_Timer.NewTimer(self.effectDuration-2, function()
-                        SilentRotate:alertReactNow(self.modeName)
+                        LoathebRotate:alertReactNow(self.modeName)
                     end)
                 end
             elseif event == "UNIT_DIED" then
-                SilentRotate:resetRotation()
+                LoathebRotate:resetRotation()
                 -- Cancel the scheduled alert, if any, when the boss dies
                 if self.metadata.timerAlertSoon then
                     self.metadata.timerAlertSoon:Cancel()
@@ -741,12 +741,12 @@ end
 
 -- Create a backward compatibility map between old mode names and new ones
 -- And fill some attributes automatically
-SilentRotate.backwardCompatibilityModeMap = {}
-for modeName, mode in pairs(SilentRotate.modes) do
+LoathebRotate.backwardCompatibilityModeMap = {}
+for modeName, mode in pairs(LoathebRotate.modes) do
     mode.modeName = modeName
     mode.modeNameUpper = modeName:upper()
     mode.modeNameFirstUpper = modeName:gsub("^%l", string.upper)
     if type(mode.oldModeName) == 'string' then
-        SilentRotate.backwardCompatibilityModeMap[mode.oldModeName] = modeName
+        LoathebRotate.backwardCompatibilityModeMap[mode.oldModeName] = modeName
     end
 end

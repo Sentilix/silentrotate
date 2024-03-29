@@ -1,7 +1,7 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("SilentRotate", "enUS", true, false)
+local L = LibStub("AceLocale-3.0"):NewLocale("LoathebRotate", "enUS", true, false)
 if not L then return end
-L["LOADED_MESSAGE"] = "SilentRotate loaded, type /silentrotate for options"
-L["TRANQ_WINDOW_HIDDEN"] = "SilentRotate window hidden. Use /silentrotate toggle to get it back"
+L["LOADED_MESSAGE"] = "LoathebRotate loaded, type /LoathebRotate for options"
+L["TRANQ_WINDOW_HIDDEN"] = "LoathebRotate window hidden. Use /LoathebRotate toggle to get it back"
 
     -- Buttons
 L["BUTTON_SETTINGS"] = "Settings"
@@ -14,7 +14,7 @@ L["BUTTON_CLEAR_HISTORY"] = "Clear"
     -- Settings
 L["SETTING_GENERAL"] = "General"
 L["SETTING_GENERAL_REPORT"] = "Please report any issue at"
-L["SETTING_GENERAL_DESC"] = "Work in Progress: SilentRotate is an extension of TranqRotate. While TranqRotate is dedicated to hunter tranqshots, SilentRotate adds \"modes\" for other classes or spells."
+L["SETTING_GENERAL_DESC"] = "Work in Progress: LoathebRotate is an extension of TranqRotate. While TranqRotate is dedicated to hunter tranqshots, LoathebRotate adds \"modes\" for other classes or spells."
 
 L["LOCK_WINDOW"] = "Lock window"
 L["LOCK_WINDOW_DESC"] = "Lock window"
@@ -24,8 +24,8 @@ L["DO_NOT_SHOW_WHEN_JOINING_RAID"] = "Do not show window when joining a raid"
 L["DO_NOT_SHOW_WHEN_JOINING_RAID_DESC"] = "Check this if you don't want the window to show up each time you join a raid"
 L["SHOW_WHEN_TARGETING_BOSS"] = "Show window when you target a tranq-able boss"
 L["SHOW_WHEN_TARGETING_BOSS_DESC"] = "Show window when you target a tranq-able boss"
-L["WINDOW_LOCKED"] = "SilentRotate: Window locked"
-L["WINDOW_UNLOCKED"] = "SilentRotate: Window unlocked"
+L["WINDOW_LOCKED"] = "LoathebRotate: Window locked"
+L["WINDOW_UNLOCKED"] = "LoathebRotate: Window unlocked"
 
 L["TEST_MODE_HEADER"] = "Test mode"
 L["ENABLE_ARCANE_SHOT_TESTING"] = "Toggle testing mode"
@@ -197,7 +197,7 @@ L["SETTING_SOUNDS"] = "Sounds"
 L["ENABLE_NEXT_TO_TRANQ_SOUND"] = "Play a sound when you are the next to shoot"
 L["ENABLE_TRANQ_NOW_SOUND"] = "Play a sound when you have to shoot your spell"
 L["TRANQ_NOW_SOUND_CHOICE"] = "Select the sound you want to use for the 'cast now' alert"
-L["DBM_SOUND_WARNING"] = "DBM is playing the 'flag taken' sound on each frenzy, it may prevent you from earing gentle sounds from SilentRotate. I would either suggest to pick a strong sound or disable DBM frenzy sound."
+L["DBM_SOUND_WARNING"] = "DBM is playing the 'flag taken' sound on each frenzy, it may prevent you from earing gentle sounds from LoathebRotate. I would either suggest to pick a strong sound or disable DBM frenzy sound."
 
     --- History
 L["SETTING_HISTORY"] = "History"
@@ -225,13 +225,13 @@ L["HISTORY_ASSIGN_PLAYER"] = "%s assigned %s to focus on %s."
 L["HISTORY_ASSIGN_NOBODY"] = "%s un-assigned %s."
 
     --- Icons
-L["DISPLAY_BLIND_ICON"] = "Show an icon for players without SilentRotate"
-L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other SilentRotate user."
+L["DISPLAY_BLIND_ICON"] = "Show an icon for players without LoathebRotate"
+L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other LoathebRotate user."
 L["DISPLAY_BLIND_ICON_TOOLTIP"] = "Show the blind icon tooltip"
 L["DISPLAY_BLIND_ICON_TOOLTIP_DESC"] = "You can disable this options to disable the tooltip while still having the icon"
 
     --- Tooltips
-L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use SilentRotate"
+L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use LoathebRotate"
 L["TOOLTIP_MAY_RUN_OUDATED_VERSION"] = "Or runs an outdated version, older than 0.7.0"
 L["TOOLTIP_DISABLE_SETTINGS"] = "(You can disable the icon and/or the tooltip in the settings)"
 L["TOOLTIP_EFFECT_REMAINING"] = "Effect remaining: %s"
@@ -255,7 +255,7 @@ L["DIALOG_ASSIGNMENT_CHANGE_FOCUS"] = "Change Focus"
 
     --- Notifications
 L["UPDATE_AVAILABLE"] = "A new version is available, please update to get the latest features."
-L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! SilentRotate may not work correctly between you and up-to-date players."
+L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! LoathebRotate may not work correctly between you and up-to-date players."
 
 L["VERSION_CHECK"] = "## Version check ##"
 L["VERSION_UNDETECTABLE"] = "Not installed or older than 0.7.0"

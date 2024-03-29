@@ -1,36 +1,36 @@
 local Addon = select(1, ...)
-local SilentRotate = select(2, ...)
+local LoathebRotate = select(2, ...)
 
 local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
-function SilentRotate:CreateConfig()
+function LoathebRotate:CreateConfig()
 
 	local function get(info)
-		return SilentRotate.db.profile[info[#info]]
+		return LoathebRotate.db.profile[info[#info]]
 	end
 
 	local function set(info, value)
-		SilentRotate.db.profile[info[#info]] = value
-        SilentRotate:applySettings()
+		LoathebRotate.db.profile[info[#info]] = value
+        LoathebRotate:applySettings()
 	end
 
     local function refreshNames()
-        for _, hunter in pairs(SilentRotate.hunterTable) do
-            SilentRotate:setHunterName(hunter)
+        for _, hunter in pairs(LoathebRotate.hunterTable) do
+            LoathebRotate:setHunterName(hunter)
         end
     end
 
     local function refreshFrameColors()
-        for _, hunter in pairs(SilentRotate.hunterTable) do
-            SilentRotate:setHunterFrameColor(hunter)
+        for _, hunter in pairs(LoathebRotate.hunterTable) do
+            LoathebRotate:setHunterFrameColor(hunter)
         end
     end
 
     local function getColor(info)
-        return SilentRotate.db.profile[info[#info]][1], SilentRotate.db.profile[info[#info]][2], SilentRotate.db.profile[info[#info]][3]
+        return LoathebRotate.db.profile[info[#info]][1], LoathebRotate.db.profile[info[#info]][2], LoathebRotate.db.profile[info[#info]][3]
     end
 
     local function setColor(info, r, g, b, suffix)
@@ -40,7 +40,7 @@ function SilentRotate:CreateConfig()
             -- Exclude the trailing suffix string
             colorName = string.sub(colorName, 1, suffixIndex-1)
         end
-        SilentRotate.colors[colorName] = CreateColor(r, g, b)
+        LoathebRotate.colors[colorName] = CreateColor(r, g, b)
         set(info, {r,g,b})
     end
 
@@ -61,13 +61,13 @@ function SilentRotate:CreateConfig()
 
     local function setForMode(...)
         set(...)
-        for _, mainFrame in pairs(SilentRotate.mainFrames) do
-            SilentRotate:applyModeFrameSettings(mainFrame)
+        for _, mainFrame in pairs(LoathebRotate.mainFrames) do
+            LoathebRotate:applyModeFrameSettings(mainFrame)
         end
     end
 
 	local options = {
-		name = "SilentRotate",
+		name = "LoathebRotate",
 		type = "group",
 		get = get,
 		set = set,
@@ -79,13 +79,13 @@ function SilentRotate:CreateConfig()
                 order = 1,
                 args = {
 					descriptionText = {
-						name = "SilentRotate " .. SilentRotate.version .. " by Vinny-Illidan, based on the TranqRotate code by Slivo-Sulfuron\n",
+						name = "LoathebRotate " .. LoathebRotate.version .. " by Vinny-Illidan, based on the TranqRotate code by Slivo-Sulfuron\n",
 						type = "description",
 						width = "full",
 						order = 1,
 					},
 					repoLink = {
-						name = L['SETTING_GENERAL_REPORT'] .. " https://github.com/ennvina/silentrotate\n",
+						name = L['SETTING_GENERAL_REPORT'] .. " https://github.com/ennvina/LoathebRotate\n",
 						type = "description",
 						width = "full",
 						order = 2,
@@ -159,7 +159,7 @@ function SilentRotate:CreateConfig()
                         name = L["ENABLE_ARCANE_SHOT_TESTING"],
                         type = "execute",
                         order = 23,
-                        func = function() SilentRotate.toggleArcaneShotTesting() end
+                        func = function() LoathebRotate.toggleArcaneShotTesting() end
                     },
                     showBlindIcon = {
                         name = L["DISPLAY_BLIND_ICON"],
@@ -167,7 +167,7 @@ function SilentRotate:CreateConfig()
                         type = "toggle",
                         order = 24,
                         width = "full",
-                        set = function(info, value) set(info,value) SilentRotate:refreshBlindIcons() end
+                        set = function(info, value) set(info,value) LoathebRotate:refreshBlindIcons() end
                     },
                     showBlindIconTooltip = {
                         name = L["DISPLAY_BLIND_ICON_TOOLTIP"],
@@ -242,14 +242,14 @@ function SilentRotate:CreateConfig()
                             ["RAID"] = L["CHANNEL_RAID"],
                             ["GUILD"] = L["CHANNEL_GUILD"]
                         },
-                        set = function(info, value) set(info,value) LibStub("AceConfigRegistry-3.0", true):NotifyChange("SilentRotate") end
+                        set = function(info, value) set(info,value) LibStub("AceConfigRegistry-3.0", true):NotifyChange("LoathebRotate") end
                     },
                     setupBroadcastTargetChannel = {
                         name = L["MESSAGE_CHANNEL_NAME"],
                         desc = L["MESSAGE_CHANNEL_NAME_DESC"],
                         type = "input",
                         order = 52,
-                        hidden = function() return not (SilentRotate.db.profile.rotationReportChannelType == "CHANNEL") end,
+                        hidden = function() return not (LoathebRotate.db.profile.rotationReportChannelType == "CHANNEL") end,
                     },
                     useMultilineRotationReport = {
                         name = L["USE_MULTILINE_ROTATION_REPORT"],
@@ -301,7 +301,7 @@ function SilentRotate:CreateConfig()
                         order = 5,
                         get = getColor,
                         set = setFgColor,
-                        hidden = function() return not SilentRotate.db.profile.prependIndex end,
+                        hidden = function() return not LoathebRotate.db.profile.prependIndex end,
                     },
                     appendGroup = {
                         name = L["APPEND_GROUP"],
@@ -318,7 +318,7 @@ function SilentRotate:CreateConfig()
                         order = 11,
                         width = "half",
                         set = setNameTag,
-                        hidden = function() return not SilentRotate.db.profile.appendGroup end,
+                        hidden = function() return not LoathebRotate.db.profile.appendGroup end,
                     },
                     groupSuffixColor = {
                         name = L["GROUP_SUFFIX_COLOR"],
@@ -327,7 +327,7 @@ function SilentRotate:CreateConfig()
                         order = 12,
                         get = getColor,
                         set = setFgColor,
-                        hidden = function() return not SilentRotate.db.profile.appendGroup end,
+                        hidden = function() return not LoathebRotate.db.profile.appendGroup end,
                     },
                     appendTarget = {
                         name = L["APPEND_TARGET"],
@@ -344,7 +344,7 @@ function SilentRotate:CreateConfig()
                         order = 14,
                         width = "full",
                         set = setNameTag,
-                        hidden = function() return not SilentRotate.db.profile.appendTarget end,
+                        hidden = function() return not LoathebRotate.db.profile.appendTarget end,
                     },
                     appendTargetNoGroup = {
                         name = L["APPEND_TARGET_NOGROUP"],
@@ -353,7 +353,7 @@ function SilentRotate:CreateConfig()
                         order = 15,
                         width = "full",
                         set = setNameTag,
-                        hidden = function() return not SilentRotate.db.profile.appendGroup or not SilentRotate.db.profile.appendTarget end,
+                        hidden = function() return not LoathebRotate.db.profile.appendGroup or not LoathebRotate.db.profile.appendTarget end,
                     },
                     backgroundHeader = {
                         name = L["BACKGROUND_HEADER"],
@@ -423,10 +423,10 @@ function SilentRotate:CreateConfig()
                         type = "select",
                         style = "dropdown",
                         order = 3,
-                        values = SilentRotate.constants.tranqNowSounds,
+                        values = LoathebRotate.constants.tranqNowSounds,
                         set = function(info, value)
                             set(info, value)
-                            PlaySoundFile(SilentRotate.constants.sounds.alarms[value])
+                            PlaySoundFile(LoathebRotate.constants.sounds.alarms[value])
                         end
                     },
                     baseVersion = {
@@ -466,7 +466,7 @@ function SilentRotate:CreateConfig()
 
     local modeBaseIndex = 10
     local announceIndex = 30
-    for modeName, mode in pairs(SilentRotate.modes) do
+    for modeName, mode in pairs(LoathebRotate.modes) do
         options.args.modes.args[modeName.."ModeHeader"] = {
             type = "header",
             order = modeBaseIndex,
@@ -486,7 +486,7 @@ function SilentRotate:CreateConfig()
             order = modeBaseIndex+2,
             width = "half",
             set = setForMode,
-            hidden = function() return not SilentRotate.db.profile[modeName.."ModeButton"] end,
+            hidden = function() return not LoathebRotate.db.profile[modeName.."ModeButton"] end,
         }
         if (mode.assignable) then
             options.args.modes.args[modeName.."TrackFocus"] = {
@@ -499,12 +499,12 @@ function SilentRotate:CreateConfig()
             }
         end
         options.args.modes.args[modeName.."ModeInvisible"] = {
-            name = SilentRotate.colors.lightRed:WrapTextInColorCode(L["MODE_INVISIBLE"]),
+            name = LoathebRotate.colors.lightRed:WrapTextInColorCode(L["MODE_INVISIBLE"]),
             type = "description",
             fontSize = "medium",
             width = "full",
             order = modeBaseIndex+4,
-            hidden = function() return SilentRotate.db.profile[modeName.."ModeButton"] or SilentRotate.db.profile.currentMode ~= modeName end,
+            hidden = function() return LoathebRotate.db.profile[modeName.."ModeButton"] or LoathebRotate.db.profile.currentMode ~= modeName end,
         }
         modeBaseIndex = modeBaseIndex+10
 

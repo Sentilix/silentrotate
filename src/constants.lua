@@ -1,6 +1,6 @@
-local SilentRotate = select(2, ...)
+local LoathebRotate = select(2, ...)
 
-SilentRotate.colors = {
+LoathebRotate.colors = {
     ['white']       = CreateColor(1,1,1),
 
     ['lightRed']    = CreateColor(1.0, 0.4, 0.4),
@@ -29,7 +29,7 @@ SilentRotate.colors = {
     ['offline'] = nil,
 }
 
-SilentRotate.constants = {
+LoathebRotate.constants = {
     ['hunterFrameHeight'] = 22,
     ['hunterFrameSpacing'] = 4,
     ['titleBarHeight'] = 18,
@@ -45,7 +45,7 @@ SilentRotate.constants = {
         defaultTimeVisible = 600, -- Fallback value in case the configuration is not a number
     },
 
-    ['commsPrefix'] = 'silentrotate',
+    ['commsPrefix'] = 'loathebrotate',
 
     ['commsChannel'] = 'RAID',
 
@@ -55,18 +55,18 @@ SilentRotate.constants = {
         ['syncRequest'] = 'sync-request',
     },
 
-    ['printPrefix'] = 'SilentRotate - ',
+    ['printPrefix'] = 'LoathebRotate - ',
     ['duplicateTranqshotDelayThreshold'] = 10,
 
     ['minimumCooldownElapsedForEligibility'] = 10,
 
     ['sounds'] = {
-        ['nextToTranq'] = 'Interface\\AddOns\\SilentRotate\\sounds\\ding.ogg',
+        ['nextToTranq'] = 'Interface\\AddOns\\LoathebRotate\\sounds\\ding.ogg',
         ['alarms'] = {
-            ['alarm1'] = 'Interface\\AddOns\\SilentRotate\\sounds\\alarm.ogg',
-            ['alarm2'] = 'Interface\\AddOns\\SilentRotate\\sounds\\alarm2.ogg',
-            ['alarm3'] = 'Interface\\AddOns\\SilentRotate\\sounds\\alarm3.ogg',
-            ['alarm4'] = 'Interface\\AddOns\\SilentRotate\\sounds\\alarm4.ogg',
+            ['alarm1'] = 'Interface\\AddOns\\LoathebRotate\\sounds\\alarm.ogg',
+            ['alarm2'] = 'Interface\\AddOns\\LoathebRotate\\sounds\\alarm2.ogg',
+            ['alarm3'] = 'Interface\\AddOns\\LoathebRotate\\sounds\\alarm3.ogg',
+            ['alarm4'] = 'Interface\\AddOns\\LoathebRotate\\sounds\\alarm4.ogg',
             ['flagtaken'] = 'Sound\\Spells\\PVPFlagTaken.ogg',
         }
     },

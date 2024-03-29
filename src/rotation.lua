@@ -1,8 +1,8 @@
-local SilentRotate = select(2, ...)
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local LoathebRotate = select(2, ...)
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
 -- Adds hunter to global table and one of the two rotation tables
-function SilentRotate:registerHunter(hunterName)
+function LoathebRotate:registerHunter(hunterName)
 
     -- Initialize hunter 'object'
     local hunter = {}
@@ -14,35 +14,35 @@ function SilentRotate:registerHunter(hunterName)
     hunter.addonVersion = nil
 
     -- Add to global list
-    table.insert(SilentRotate.hunterTable, hunter)
+    table.insert(LoathebRotate.hunterTable, hunter)
 
     -- Add to rotation or backup group depending on rotation group size
-    if (#SilentRotate.rotationTables.rotation > 2) then
-        table.insert(SilentRotate.rotationTables.backup, hunter)
+    if (#LoathebRotate.rotationTables.rotation > 2) then
+        table.insert(LoathebRotate.rotationTables.backup, hunter)
     else
-        table.insert(SilentRotate.rotationTables.rotation, hunter)
+        table.insert(LoathebRotate.rotationTables.rotation, hunter)
     end
 
     -- @TODO apply only to the relevant mainFrame
-    SilentRotate:drawHunterFramesOfAllMainFrames()
+    LoathebRotate:drawHunterFramesOfAllMainFrames()
 
     return hunter
 end
 
 -- Removes a hunter from all lists
-function SilentRotate:removeHunter(deletedHunter)
+function LoathebRotate:removeHunter(deletedHunter)
 
     -- Clear from global list
-    for key, hunter in pairs(SilentRotate.hunterTable) do
+    for key, hunter in pairs(LoathebRotate.hunterTable) do
         if (hunter.name == deletedHunter.name) then
-            SilentRotate:hideHunter(hunter)
-            table.remove(SilentRotate.hunterTable, key)
+            LoathebRotate:hideHunter(hunter)
+            table.remove(LoathebRotate.hunterTable, key)
             break
         end
     end
 
     -- clear from rotation lists
-    for key, hunterTable in pairs(SilentRotate.rotationTables) do
+    for key, hunterTable in pairs(LoathebRotate.rotationTables) do
         for subkey, hunter in pairs(hunterTable) do
             if (hunter.name == deletedHunter.name) then
                 table.remove(hunterTable, subkey)
@@ -51,7 +51,7 @@ function SilentRotate:removeHunter(deletedHunter)
     end
 
     -- @TODO apply only to the relevant mainFrame
-    SilentRotate:drawHunterFramesOfAllMainFrames()
+    LoathebRotate:drawHunterFramesOfAllMainFrames()
 end
 
 -- Update the rotation list once a tranq has been done.
@@ -62,33 +62,33 @@ end
 -- @param endTimeOfEffect       time when the effect on the targetGUID fades (by default, time is now+duration)
 -- @param targetGUID            GUID of the only target or main target of the rotation, if such target exists
 -- @param buffName              name of the buff given to targetGUID
-function SilentRotate:rotate(lastHunter, fail, rotateWithoutCooldown, endTimeOfCooldown, endTimeOfEffect, targetGUID, buffName)
+function LoathebRotate:rotate(lastHunter, fail, rotateWithoutCooldown, endTimeOfCooldown, endTimeOfEffect, targetGUID, buffName)
 
     -- Default value to false
     fail = fail or false
 
     local playerName, realm = UnitName("player")
-    local hunterRotationTable = SilentRotate:getHunterRotationTable(lastHunter)
+    local hunterRotationTable = LoathebRotate:getHunterRotationTable(lastHunter)
     local hasPlayerFailed = playerName == lastHunter.name and fail
 
     lastHunter.lastTranqTime = GetTime()
 
     -- Do not trigger cooldown when rotation from a dead or disconnected status
     if (rotateWithoutCooldown ~= true) then
-        SilentRotate:startHunterCooldown(lastHunter, endTimeOfCooldown, endTimeOfEffect, targetGUID, buffName)
+        LoathebRotate:startHunterCooldown(lastHunter, endTimeOfCooldown, endTimeOfEffect, targetGUID, buffName)
     end
 
-    if (hunterRotationTable == SilentRotate.rotationTables.rotation) then
-        local nextHunter = SilentRotate:getNextRotationHunter(lastHunter)
+    if (hunterRotationTable == LoathebRotate.rotationTables.rotation) then
+        local nextHunter = LoathebRotate:getNextRotationHunter(lastHunter)
 
         if (nextHunter ~= nil) then
 
-            SilentRotate:setNextTranq(nextHunter)
+            LoathebRotate:setNextTranq(nextHunter)
 
-            if (SilentRotate:isHunterTranqCooldownReady(nextHunter)) then
-                if (#SilentRotate.rotationTables.backup < 1) then
+            if (LoathebRotate:isHunterTranqCooldownReady(nextHunter)) then
+                if (#LoathebRotate.rotationTables.backup < 1) then
                     if (fail and nextHunter.name == playerName) then
-                        SilentRotate:alertReactNow(lastHunter.modeName)
+                        LoathebRotate:alertReactNow(lastHunter.modeName)
                     end
                 end
             end
@@ -96,33 +96,33 @@ function SilentRotate:rotate(lastHunter, fail, rotateWithoutCooldown, endTimeOfC
     end
 
     if (fail) then
-        if (SilentRotate:getHunterRotationTable(SilentRotate:getHunter(playerName)) == SilentRotate.rotationTables.backup) then
-            SilentRotate:alertReactNow(lastHunter.modeName)
+        if (LoathebRotate:getHunterRotationTable(LoathebRotate:getHunter(playerName)) == LoathebRotate.rotationTables.backup) then
+            LoathebRotate:alertReactNow(lastHunter.modeName)
         end
     end
 end
 
 -- Removes all nextTranq flags and set it true for next shooter
-function SilentRotate:setNextTranq(nextHunter)
-    for key, hunter in pairs(SilentRotate.rotationTables.rotation) do
+function LoathebRotate:setNextTranq(nextHunter)
+    for key, hunter in pairs(LoathebRotate.rotationTables.rotation) do
         if (hunter.name == nextHunter.name) then
             hunter.nextTranq = true
 
-            if (nextHunter.name == UnitName("player")) and SilentRotate.db.profile.enableNextToTranqSound then
-                PlaySoundFile(SilentRotate.constants.sounds.nextToTranq)
+            if (nextHunter.name == UnitName("player")) and LoathebRotate.db.profile.enableNextToTranqSound then
+                PlaySoundFile(LoathebRotate.constants.sounds.nextToTranq)
             end
         else
             hunter.nextTranq = false
         end
 
-        SilentRotate:refreshHunterFrame(hunter)
+        LoathebRotate:refreshHunterFrame(hunter)
     end
 end
 
 -- Check if the player is the next in position to tranq
-function SilentRotate:isPlayerNextTranq()
+function LoathebRotate:isPlayerNextTranq()
 
-    local player = SilentRotate:getHunter(UnitGUID("player"))
+    local player = LoathebRotate:getHunter(UnitGUID("player"))
 
     -- Non hunter user
     if (player == nil) then
@@ -132,7 +132,7 @@ function SilentRotate:isPlayerNextTranq()
     if (not player.nextTranq) then
 
         local isRotationInitialized = false;
-        local rotationTable = SilentRotate.rotationTables.rotation
+        local rotationTable = LoathebRotate.rotationTables.rotation
 
         -- checking if a hunter is flagged nextTranq
         for key, hunter in pairs(rotationTable) do
@@ -143,7 +143,7 @@ function SilentRotate:isPlayerNextTranq()
         end
 
         -- First in rotation has to tranq if not one is flagged
-        if (not isRotationInitialized and SilentRotate:getHunterIndex(player, rotationTable) == 1) then
+        if (not isRotationInitialized and LoathebRotate:getHunterIndex(player, rotationTable) == 1) then
             return true
         end
 
@@ -153,9 +153,9 @@ function SilentRotate:isPlayerNextTranq()
 end
 
 -- Find and returns the next hunter that will tranq base on last shooter
-function SilentRotate:getNextRotationHunter(lastHunter)
+function LoathebRotate:getNextRotationHunter(lastHunter)
 
-    local rotationTable = SilentRotate.rotationTables.rotation
+    local rotationTable = LoathebRotate.rotationTables.rotation
     local nextHunter
     local lastHunterIndex = 1
 
@@ -171,7 +171,7 @@ function SilentRotate:getNextRotationHunter(lastHunter)
     if (lastHunterIndex < #rotationTable) then
         for index = lastHunterIndex + 1 , #rotationTable, 1 do
             local hunter = rotationTable[index]
-            if (SilentRotate:isEligibleForNextTranq(hunter)) then
+            if (LoathebRotate:isEligibleForNextTranq(hunter)) then
                 nextHunter = hunter
                 break
             end
@@ -182,7 +182,7 @@ function SilentRotate:getNextRotationHunter(lastHunter)
     if (nextHunter == nil) then
         for index = 1 , lastHunterIndex, 1 do
             local hunter = rotationTable[index]
-            if (SilentRotate:isEligibleForNextTranq(hunter)) then
+            if (LoathebRotate:isEligibleForNextTranq(hunter)) then
                 nextHunter = hunter
                 break
             end
@@ -194,7 +194,7 @@ function SilentRotate:getNextRotationHunter(lastHunter)
     if (nextHunter == nil and #rotationTable > 0) then
         local latestTranq = GetTime() + 1
         for key, hunter in pairs(rotationTable) do
-            if (SilentRotate:isHunterAliveAndOnline(hunter) and hunter.lastTranqTime < latestTranq) then
+            if (LoathebRotate:isHunterAliveAndOnline(hunter) and hunter.lastTranqTime < latestTranq) then
                 nextHunter = hunter
                 latestTranq = hunter.lastTranqTime
             end
@@ -205,29 +205,29 @@ function SilentRotate:getNextRotationHunter(lastHunter)
 end
 
 -- Init/Reset rotation status, next tranq is the first hunter on the list
-function SilentRotate:resetRotation()
-    for key, hunter in pairs(SilentRotate.rotationTables.rotation) do
+function LoathebRotate:resetRotation()
+    for key, hunter in pairs(LoathebRotate.rotationTables.rotation) do
         hunter.nextTranq = false
-        SilentRotate:refreshHunterFrame(hunter)
+        LoathebRotate:refreshHunterFrame(hunter)
     end
 end
 
 -- @todo: remove this | TEST FUNCTION - Manually rotate hunters for test purpose
-function SilentRotate:testRotation()
+function LoathebRotate:testRotation()
 
-    for key, hunter in pairs(SilentRotate.rotationTables.rotation) do
+    for key, hunter in pairs(LoathebRotate.rotationTables.rotation) do
         if (hunter.nextTranq) then
-            SilentRotate:rotate(hunter, false)
+            LoathebRotate:rotate(hunter, false)
             break
         end
     end
 end
 
 -- Check if a hunter is already registered
-function SilentRotate:isHunterRegistered(GUID)
+function LoathebRotate:isHunterRegistered(GUID)
 
-    -- @todo refactor this using SilentRotate:getHunter(GUID)
-    for key,hunter in pairs(SilentRotate.hunterTable) do
+    -- @todo refactor this using LoathebRotate:getHunter(GUID)
+    for key,hunter in pairs(LoathebRotate.hunterTable) do
         if (hunter.GUID == GUID) then
             return true
         end
@@ -237,10 +237,10 @@ function SilentRotate:isHunterRegistered(GUID)
 end
 
 -- Return our hunter object from name or GUID
-function SilentRotate:getHunter(searchTerm)
+function LoathebRotate:getHunter(searchTerm)
 
     -- @todo optimize with a reverse table
-    for _, hunter in pairs(SilentRotate.hunterTable) do
+    for _, hunter in pairs(LoathebRotate.hunterTable) do
         if (searchTerm ~= nil and (hunter.GUID == searchTerm or hunter.name == searchTerm)) then
             return hunter
         end
@@ -250,20 +250,20 @@ function SilentRotate:getHunter(searchTerm)
 end
 
 -- Iterate over hunter list and purge hunter that aren't in the group anymore
-function SilentRotate:purgeHunterList()
+function LoathebRotate:purgeHunterList()
 
     local change = false
     local huntersToRemove = {}
 
-    local mode = SilentRotate:getMode() -- @todo parse all modes
+    local mode = LoathebRotate:getMode() -- @todo parse all modes
 
-    for key,hunter in pairs(SilentRotate.hunterTable) do
+    for key,hunter in pairs(LoathebRotate.hunterTable) do
 
         if  (
                 -- Is unit in the party? "player" is always accepted
                 ( not UnitInParty(hunter.name) and not UnitIsUnit(hunter.name, "player") )
             or
-                not SilentRotate:isPlayerWanted(mode, hunter.name, nil)
+                not LoathebRotate:isPlayerWanted(mode, hunter.name, nil)
             ) then
             table.insert(huntersToRemove, hunter)
         end
@@ -271,17 +271,17 @@ function SilentRotate:purgeHunterList()
 
     if (#huntersToRemove > 0) then
         for key,hunter in ipairs(huntersToRemove) do
-            SilentRotate:unregisterUnitEvents(hunter)
-            SilentRotate:removeHunter(hunter)
+            LoathebRotate:unregisterUnitEvents(hunter)
+            LoathebRotate:removeHunter(hunter)
         end
         -- @TODO apply only to the relevant mainFrame
-        SilentRotate:drawHunterFramesOfAllMainFrames()
+        LoathebRotate:drawHunterFramesOfAllMainFrames()
     end
 
 end
 
 -- Update the status of one hunter
-function SilentRotate:updateUnitStatus(name, classFilename, subgroup)
+function LoathebRotate:updateUnitStatus(name, classFilename, subgroup)
 
     local GUID = UnitGUID(name)
     local hunter
@@ -289,15 +289,15 @@ function SilentRotate:updateUnitStatus(name, classFilename, subgroup)
     local mode = self:getMode() -- @todo Parse modes instead
 
     -- Is the class required for the current mode?
-    if SilentRotate:isPlayerWanted(mode, name, classFilename, nil) then
+    if LoathebRotate:isPlayerWanted(mode, name, classFilename, nil) then
 
-        local registered = SilentRotate:isHunterRegistered(GUID)
+        local registered = LoathebRotate:isHunterRegistered(GUID)
 
         if (not registered) then
-            hunter = SilentRotate:registerHunter(name)
-            SilentRotate:registerUnitEvents(hunter)
+            hunter = LoathebRotate:registerHunter(name)
+            LoathebRotate:registerUnitEvents(hunter)
         else
-            hunter = SilentRotate:getHunter(GUID)
+            hunter = LoathebRotate:getHunter(GUID)
         end
 
         local formerGroup = hunter.subgroup
@@ -310,16 +310,16 @@ function SilentRotate:updateUnitStatus(name, classFilename, subgroup)
             end
         end
 
-        SilentRotate:updateHunterStatus(hunter)
+        LoathebRotate:updateHunterStatus(hunter)
 
     end
 
 end
 
 -- Iterate over all raid members to find hunters and update their status
-function SilentRotate:updateRaidStatus()
+function LoathebRotate:updateRaidStatus()
 
-    if SilentRotate:isActive() then
+    if LoathebRotate:isActive() then
 
         local playerCount = GetNumGroupMembers()
 
@@ -329,61 +329,61 @@ function SilentRotate:updateRaidStatus()
 
                 -- Players name might be nil at loading
                 if (name ~= nil) then
-                    SilentRotate:updateUnitStatus(name, classFilename, subgroup)
+                    LoathebRotate:updateUnitStatus(name, classFilename, subgroup)
                 end
             end
         else
             local name = UnitName("player")
             local classFilename = select(2,UnitClass("player"))
-            SilentRotate:updateUnitStatus(name, classFilename, 1)
+            LoathebRotate:updateUnitStatus(name, classFilename, 1)
             for i = 1, 4 do
                 local name = UnitName("party"..i)
                 if (name) then
                     classFilename = select(2,UnitClass("party"..i))
-                    SilentRotate:updateUnitStatus(name, classFilename, 1)
+                    LoathebRotate:updateUnitStatus(name, classFilename, 1)
                 end
             end
         end
 
-        if (not SilentRotate.raidInitialized) then
-            if (not SilentRotate.db.profile.doNotShowWindowOnRaidJoin) then
-                SilentRotate:updateDisplay()
+        if (not LoathebRotate.raidInitialized) then
+            if (not LoathebRotate.db.profile.doNotShowWindowOnRaidJoin) then
+                LoathebRotate:updateDisplay()
             end
-            SilentRotate:sendSyncOrderRequest()
-            SilentRotate.raidInitialized = true
+            LoathebRotate:sendSyncOrderRequest()
+            LoathebRotate.raidInitialized = true
         end
     else
-        if(SilentRotate.raidInitialized == true) then
-            SilentRotate:updateDisplay()
-            SilentRotate.raidInitialized = false
+        if(LoathebRotate.raidInitialized == true) then
+            LoathebRotate:updateDisplay()
+            LoathebRotate.raidInitialized = false
         end
     end
 
-    SilentRotate:purgeHunterList()
+    LoathebRotate:purgeHunterList()
 end
 
 -- Update hunter status
-function SilentRotate:updateHunterStatus(hunter)
+function LoathebRotate:updateHunterStatus(hunter)
 
     -- Jump to the next hunter if the current one is dead or offline
-    if (hunter.nextTranq and (not SilentRotate:isHunterAliveAndOnline(hunter))) then
-        SilentRotate:rotate(hunter, false, true)
+    if (hunter.nextTranq and (not LoathebRotate:isHunterAliveAndOnline(hunter))) then
+        LoathebRotate:rotate(hunter, false, true)
     end
 
-    SilentRotate:refreshHunterFrame(hunter)
+    LoathebRotate:refreshHunterFrame(hunter)
 end
 
 -- Moves given hunter to the given position in the given group (ROTATION or BACKUP)
-function SilentRotate:moveHunter(hunter, group, position)
+function LoathebRotate:moveHunter(hunter, group, position)
 
-    local originTable = SilentRotate:getHunterRotationTable(hunter)
-    local originIndex = SilentRotate:getHunterIndex(hunter, originTable)
+    local originTable = LoathebRotate:getHunterRotationTable(hunter)
+    local originIndex = LoathebRotate:getHunterIndex(hunter, originTable)
 
-    local destinationTable = SilentRotate.rotationTables.rotation
+    local destinationTable = LoathebRotate.rotationTables.rotation
     local finalIndex = position
 
     if (group == 'BACKUP') then
-        destinationTable = SilentRotate.rotationTables.backup
+        destinationTable = LoathebRotate.rotationTables.backup
         -- Remove nextTranq flag when moved to backup
         hunter.nextTranq = false
     end
@@ -421,21 +421,21 @@ function SilentRotate:moveHunter(hunter, group, position)
     end
 
     -- @TODO apply only to the relevant mainFrame
-    SilentRotate:drawHunterFramesOfAllMainFrames()
+    LoathebRotate:drawHunterFramesOfAllMainFrames()
 end
 
 -- Find the table that contains given hunter (rotation or backup)
-function SilentRotate:getHunterRotationTable(hunter)
-    if (SilentRotate:tableContains(SilentRotate.rotationTables.rotation, hunter)) then
-        return SilentRotate.rotationTables.rotation
+function LoathebRotate:getHunterRotationTable(hunter)
+    if (LoathebRotate:tableContains(LoathebRotate.rotationTables.rotation, hunter)) then
+        return LoathebRotate.rotationTables.rotation
     end
-    if (SilentRotate:tableContains(SilentRotate.rotationTables.backup, hunter)) then
-        return SilentRotate.rotationTables.backup
+    if (LoathebRotate:tableContains(LoathebRotate.rotationTables.backup, hunter)) then
+        return LoathebRotate.rotationTables.backup
     end
 end
 
 -- Returns a hunter's index in the given table
-function SilentRotate:getHunterIndex(hunter, table)
+function LoathebRotate:getHunterIndex(hunter, table)
     local originIndex = 0
 
     for key, loopHunter in pairs(table) do
@@ -449,11 +449,11 @@ function SilentRotate:getHunterIndex(hunter, table)
 end
 
 -- Builds simple rotation tables containing only hunters names
-function SilentRotate:getSimpleRotationTables()
+function LoathebRotate:getSimpleRotationTables()
 
     local simpleTables = { rotation = {}, backup = {} }
 
-    for key, rotationTable in pairs(SilentRotate.rotationTables) do
+    for key, rotationTable in pairs(LoathebRotate.rotationTables) do
         for _, hunter in pairs(rotationTable) do
             table.insert(simpleTables[key], hunter.GUID)
         end
@@ -463,7 +463,7 @@ function SilentRotate:getSimpleRotationTables()
 end
 
 -- Apply a simple rotation configuration
-function SilentRotate:applyRotationConfiguration(rotationsTables)
+function LoathebRotate:applyRotationConfiguration(rotationsTables)
 
     for key, rotationTable in pairs(rotationsTables) do
 
@@ -473,23 +473,23 @@ function SilentRotate:applyRotationConfiguration(rotationsTables)
         end
 
         for index, GUID in pairs(rotationTable) do
-            local hunter = SilentRotate:getHunter(GUID)
+            local hunter = LoathebRotate:getHunter(GUID)
             if (hunter) then
-                SilentRotate:moveHunter(hunter, group, index)
+                LoathebRotate:moveHunter(hunter, group, index)
             end
         end
     end
 end
 
 -- Display an alert and play a sound when the player should immediatly tranq
-function SilentRotate:alertReactNow(modeName)
-    local mode = SilentRotate:getMode(modeName)
+function LoathebRotate:alertReactNow(modeName)
+    local mode = LoathebRotate:getMode(modeName)
 
     if mode and mode.canFail and mode.alertWhenFail then
-        RaidNotice_AddMessage(RaidWarningFrame, SilentRotate.db.profile["announce"..mode.modeNameFirstUpper.."ReactMessage"], ChatTypeInfo["RAID_WARNING"])
+        RaidNotice_AddMessage(RaidWarningFrame, LoathebRotate.db.profile["announce"..mode.modeNameFirstUpper.."ReactMessage"], ChatTypeInfo["RAID_WARNING"])
 
-        if SilentRotate.db.profile.enableTranqNowSound then
-            PlaySoundFile(SilentRotate.constants.sounds.alarms[SilentRotate.db.profile.tranqNowSound])
+        if LoathebRotate.db.profile.enableTranqNowSound then
+            PlaySoundFile(LoathebRotate.constants.sounds.alarms[LoathebRotate.db.profile.tranqNowSound])
         end
     end
 end

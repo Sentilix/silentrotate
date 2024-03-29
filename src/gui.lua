@@ -1,38 +1,38 @@
-local SilentRotate = select(2, ...)
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local LoathebRotate = select(2, ...)
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
 -- Initialize GUI frames. Shouldn't be called more than once
-function SilentRotate:initGui()
+function LoathebRotate:initGui()
 
-    local mainFrame = SilentRotate:createMainFrame()
-    local titleFrame = SilentRotate:createTitleFrame(mainFrame)
-    SilentRotate:createMainFrameButtons(titleFrame)
-    SilentRotate:createModeFrame(mainFrame)
-    local rotationFrame = SilentRotate:createRotationFrame(mainFrame)
-    local backupFrame = SilentRotate:createBackupFrame(mainFrame, rotationFrame)
-    SilentRotate:createHorizontalResizer(mainFrame, SilentRotate.db.profile.windows[1], "LEFT", rotationFrame, backupFrame)
-    SilentRotate:createHorizontalResizer(mainFrame, SilentRotate.db.profile.windows[1], "RIGHT", rotationFrame, backupFrame)
+    local mainFrame = LoathebRotate:createMainFrame()
+    local titleFrame = LoathebRotate:createTitleFrame(mainFrame)
+    LoathebRotate:createMainFrameButtons(titleFrame)
+    LoathebRotate:createModeFrame(mainFrame)
+    local rotationFrame = LoathebRotate:createRotationFrame(mainFrame)
+    local backupFrame = LoathebRotate:createBackupFrame(mainFrame, rotationFrame)
+    LoathebRotate:createHorizontalResizer(mainFrame, LoathebRotate.db.profile.windows[1], "LEFT", rotationFrame, backupFrame)
+    LoathebRotate:createHorizontalResizer(mainFrame, LoathebRotate.db.profile.windows[1], "RIGHT", rotationFrame, backupFrame)
 
-    local historyFrame = SilentRotate:createHistoryFrame()
-    local historyTitleFrame = SilentRotate:createTitleFrame(historyFrame, L['SETTING_HISTORY'])
-    SilentRotate:createHistoryFrameButtons(historyTitleFrame)
-    local historyBackgroundFrame = SilentRotate:createBackgroundFrame(historyFrame, SilentRotate.constants.titleBarHeight, SilentRotate.db.profile.history.height)
-    SilentRotate:createTextFrame(historyBackgroundFrame)
-    SilentRotate:createCornerResizer(historyFrame, SilentRotate.db.profile.history)
+    local historyFrame = LoathebRotate:createHistoryFrame()
+    local historyTitleFrame = LoathebRotate:createTitleFrame(historyFrame, L['SETTING_HISTORY'])
+    LoathebRotate:createHistoryFrameButtons(historyTitleFrame)
+    local historyBackgroundFrame = LoathebRotate:createBackgroundFrame(historyFrame, LoathebRotate.constants.titleBarHeight, LoathebRotate.db.profile.history.height)
+    LoathebRotate:createTextFrame(historyBackgroundFrame)
+    LoathebRotate:createCornerResizer(historyFrame, LoathebRotate.db.profile.history)
 
-    SilentRotate:drawHunterFrames(mainFrame)
-    SilentRotate:createDropHintFrame(mainFrame)
+    LoathebRotate:drawHunterFrames(mainFrame)
+    LoathebRotate:createDropHintFrame(mainFrame)
 
-    SilentRotate:updateDisplay()
+    LoathebRotate:updateDisplay()
 end
 
 -- Show/Hide main window based on user settings
-function SilentRotate:updateDisplay()
-    for _, mainFrame in pairs(SilentRotate.mainFrames) do
-        if SilentRotate:isActive() then
+function LoathebRotate:updateDisplay()
+    for _, mainFrame in pairs(LoathebRotate.mainFrames) do
+        if LoathebRotate:isActive() then
             mainFrame:Show()
         else
-            if (SilentRotate.db.profile.hideNotInRaid) then
+            if (LoathebRotate.db.profile.hideNotInRaid) then
                 mainFrame:Hide()
             end
         end
@@ -40,36 +40,36 @@ function SilentRotate:updateDisplay()
 end
 
 -- render / re-render hunter frames to reflect table changes.
-function SilentRotate:drawHunterFrames(mainFrame)
+function LoathebRotate:drawHunterFrames(mainFrame)
 
     -- Different height to reduce spacing between both groups
-    mainFrame:SetHeight(SilentRotate.constants.rotationFramesBaseHeight + SilentRotate.constants.titleBarHeight)
-    mainFrame.rotationFrame:SetHeight(SilentRotate.constants.rotationFramesBaseHeight)
+    mainFrame:SetHeight(LoathebRotate.constants.rotationFramesBaseHeight + LoathebRotate.constants.titleBarHeight)
+    mainFrame.rotationFrame:SetHeight(LoathebRotate.constants.rotationFramesBaseHeight)
 
-    SilentRotate:drawList(SilentRotate.rotationTables.rotation, mainFrame.rotationFrame, mainFrame)
+    LoathebRotate:drawList(LoathebRotate.rotationTables.rotation, mainFrame.rotationFrame, mainFrame)
 
-    if (#SilentRotate.rotationTables.backup > 0) then
-        mainFrame:SetHeight(mainFrame:GetHeight() + SilentRotate.constants.rotationFramesBaseHeight)
+    if (#LoathebRotate.rotationTables.backup > 0) then
+        mainFrame:SetHeight(mainFrame:GetHeight() + LoathebRotate.constants.rotationFramesBaseHeight)
     end
 
-    mainFrame.backupFrame:SetHeight(SilentRotate.constants.rotationFramesBaseHeight)
-    SilentRotate:drawList(SilentRotate.rotationTables.backup, mainFrame.backupFrame, mainFrame)
+    mainFrame.backupFrame:SetHeight(LoathebRotate.constants.rotationFramesBaseHeight)
+    LoathebRotate:drawList(LoathebRotate.rotationTables.backup, mainFrame.backupFrame, mainFrame)
 
 end
 
 -- Method provided for convenience, until hunters will be dedicated to a specific mainFrame
-function SilentRotate:drawHunterFramesOfAllMainFrames()
-    for _, mainFrame in pairs(SilentRotate.mainFrames) do
-        SilentRotate:drawHunterFrames(mainFrame)
+function LoathebRotate:drawHunterFramesOfAllMainFrames()
+    for _, mainFrame in pairs(LoathebRotate.mainFrames) do
+        LoathebRotate:drawHunterFrames(mainFrame)
     end
 end
 
 -- Handle the render of a single hunter frames group
-function SilentRotate:drawList(hunterList, parentFrame, mainFrame)
+function LoathebRotate:drawList(hunterList, parentFrame, mainFrame)
 
     local index = 1
-    local hunterFrameHeight = SilentRotate.constants.hunterFrameHeight
-    local hunterFrameSpacing = SilentRotate.constants.hunterFrameSpacing
+    local hunterFrameHeight = LoathebRotate.constants.hunterFrameHeight
+    local hunterFrameSpacing = LoathebRotate.constants.hunterFrameSpacing
 
     if (#hunterList < 1 and parentFrame == mainFrame.backupFrame) then
         parentFrame:Hide()
@@ -81,7 +81,7 @@ function SilentRotate:drawList(hunterList, parentFrame, mainFrame)
 
         -- Using existing frame if possible
         if (hunter.frame == nil) then
-            SilentRotate:createHunterFrame(hunter, parentFrame, mainFrame)
+            LoathebRotate:createHunterFrame(hunter, parentFrame, mainFrame)
         else
             hunter.frame:SetParent(parentFrame)
         end
@@ -104,7 +104,7 @@ function SilentRotate:drawList(hunterList, parentFrame, mainFrame)
         end
 
         -- SetColor
-        SilentRotate:setHunterFrameColor(hunter)
+        LoathebRotate:setHunterFrameColor(hunter)
 
         hunter.frame:Show()
         hunter.frame.hunter = hunter
@@ -114,26 +114,26 @@ function SilentRotate:drawList(hunterList, parentFrame, mainFrame)
 end
 
 -- Hide the hunter frame
-function SilentRotate:hideHunter(hunter)
+function LoathebRotate:hideHunter(hunter)
     if (hunter.frame ~= nil) then
         hunter.frame:Hide()
     end
 end
 
 -- Refresh a single hunter frame
-function SilentRotate:refreshHunterFrame(hunter)
-    SilentRotate:setHunterFrameColor(hunter)
-    SilentRotate:setHunterName(hunter)
-    SilentRotate:updateBlindIcon(hunter)
+function LoathebRotate:refreshHunterFrame(hunter)
+    LoathebRotate:setHunterFrameColor(hunter)
+    LoathebRotate:setHunterName(hunter)
+    LoathebRotate:updateBlindIcon(hunter)
 end
 
 -- Toggle blind icon display based on addonVersion
-function SilentRotate:updateBlindIcon(hunter)
+function LoathebRotate:updateBlindIcon(hunter)
     if (
-        not SilentRotate.db.profile.showBlindIcon or
+        not LoathebRotate.db.profile.showBlindIcon or
         hunter.addonVersion ~= nil or
         hunter.name == UnitName('player') or
-        not SilentRotate:isHunterOnline(hunter)
+        not LoathebRotate:isHunterOnline(hunter)
     ) then
         hunter.frame.blindIconFrame:Hide()
     else
@@ -142,41 +142,41 @@ function SilentRotate:updateBlindIcon(hunter)
 end
 
 -- Refresh all blind icons
-function SilentRotate:refreshBlindIcons()
-    for _, hunter in pairs(SilentRotate.hunterTable) do
-        SilentRotate:updateBlindIcon(hunter)
+function LoathebRotate:refreshBlindIcons()
+    for _, hunter in pairs(LoathebRotate.hunterTable) do
+        LoathebRotate:updateBlindIcon(hunter)
     end
 end
 
 -- Set the hunter frame color regarding it's status
-function SilentRotate:setHunterFrameColor(hunter)
+function LoathebRotate:setHunterFrameColor(hunter)
 
-    local color = SilentRotate:getUserDefinedColor('neutral')
+    local color = LoathebRotate:getUserDefinedColor('neutral')
 
-    if (not SilentRotate:isHunterOnline(hunter)) then
-        color = SilentRotate:getUserDefinedColor('offline')
-    elseif (not SilentRotate:isHunterAlive(hunter)) then
-        color = SilentRotate:getUserDefinedColor('dead')
+    if (not LoathebRotate:isHunterOnline(hunter)) then
+        color = LoathebRotate:getUserDefinedColor('offline')
+    elseif (not LoathebRotate:isHunterAlive(hunter)) then
+        color = LoathebRotate:getUserDefinedColor('dead')
     elseif (hunter.nextTranq) then
-        color = SilentRotate:getUserDefinedColor('active')
+        color = LoathebRotate:getUserDefinedColor('active')
     end
 
     hunter.frame.texture:SetVertexColor(color:GetRGB())
 end
 
 -- Set the hunter's name regarding its class and group index
-function SilentRotate:setHunterName(hunter)
+function LoathebRotate:setHunterName(hunter)
 
     local currentText = hunter.frame.text:GetText()
     local currentFont, _, currentOutline = hunter.frame.text:GetFont()
 
     local newText = hunter.name
-    local newFont = SilentRotate:getPlayerNameFont()
-    local newOutline = SilentRotate.db.profile.useNameOutline and "OUTLINE" or ""
+    local newFont = LoathebRotate:getPlayerNameFont()
+    local newOutline = LoathebRotate.db.profile.useNameOutline and "OUTLINE" or ""
     local hasClassColor = false
     local shadowOpacity = 1.0
 
-    if (SilentRotate.db.profile.useClassColor) then
+    if (LoathebRotate.db.profile.useClassColor) then
         local _, _classFilename, _ = UnitClass(hunter.name)
         if (_classFilename) then
             if _classFilename == "PRIEST" then
@@ -194,9 +194,9 @@ function SilentRotate:setHunterName(hunter)
         end
     end
 
-    if (SilentRotate.db.profile.prependIndex) then
+    if (LoathebRotate.db.profile.prependIndex) then
         local rowIndex = 0
-        local rotationTable = SilentRotate.rotationTables.rotation
+        local rotationTable = LoathebRotate.rotationTables.rotation
         for index = 1, #rotationTable, 1 do
             local candidate = rotationTable[index]
             if (candidate ~= nil and candidate.name == hunter.name) then
@@ -206,13 +206,13 @@ function SilentRotate:setHunterName(hunter)
         end
         if (rowIndex > 0) then
             local indexText = string.format("%s.", rowIndex)
-            local color = SilentRotate:getUserDefinedColor('indexPrefix')
+            local color = LoathebRotate:getUserDefinedColor('indexPrefix')
             newText = color:WrapTextInColorCode(indexText)..newText
         end
     end
 
     local targetName, buffMode, assignedName, assignedAt
-    if SilentRotate.db.profile.appendTarget then
+    if LoathebRotate.db.profile.appendTarget then
         if hunter.targetGUID then
             targetName, buffMode = self:getHunterTarget(hunter)
             if targetName == "" then targetName = nil end
@@ -226,14 +226,14 @@ function SilentRotate:setHunterName(hunter)
     elseif not targetName then
         showTarget = false
     else
-        showTarget = buffMode and (buffMode == 'not_a_buff' or buffMode == 'has_buff' or not SilentRotate.db.profile.appendTargetBuffOnly)
+        showTarget = buffMode and (buffMode == 'not_a_buff' or buffMode == 'has_buff' or not LoathebRotate.db.profile.appendTargetBuffOnly)
     end
     hunter.showingTarget = showTarget
 
-    if (SilentRotate.db.profile.appendGroup and hunter.subgroup) then
-        if not showTarget or not SilentRotate.db.profile.appendTargetNoGroup then -- Do not append the group if the target name hides the group for clarity
-            local groupText = string.format(SilentRotate.db.profile.groupSuffix, hunter.subgroup)
-            local color = SilentRotate:getUserDefinedColor('groupSuffix')
+    if (LoathebRotate.db.profile.appendGroup and hunter.subgroup) then
+        if not showTarget or not LoathebRotate.db.profile.appendTargetNoGroup then -- Do not append the group if the target name hides the group for clarity
+            local groupText = string.format(LoathebRotate.db.profile.groupSuffix, hunter.subgroup)
+            local color = LoathebRotate:getUserDefinedColor('groupSuffix')
             newText = newText.." "..color:WrapTextInColorCode(groupText)
         end
     end
@@ -258,8 +258,8 @@ function SilentRotate:setHunterName(hunter)
             targetName = mode.customTargetName(mode, hunter, targetName)
         end
         if targetName then
-            newText = newText..SilentRotate.colors['white']:WrapTextInColorCode(" > ")
-            newText = newText..SilentRotate.colors[targetColorName]:WrapTextInColorCode(targetName)
+            newText = newText..LoathebRotate.colors['white']:WrapTextInColorCode(" > ")
+            newText = newText..LoathebRotate.colors[targetColorName]:WrapTextInColorCode(targetName)
         end
     end
 
@@ -270,7 +270,7 @@ function SilentRotate:setHunterName(hunter)
         hunter.frame.text:SetText(newText)
     end
     if (newText ~= currentText or newOutline ~= currentOutline) then
-        if (SilentRotate.db.profile.useNameOutline) then
+        if (LoathebRotate.db.profile.useNameOutline) then
             hunter.frame.text:SetShadowOffset(0, 0)
         else
             hunter.frame.text:SetShadowColor(0, 0, 0, shadowOpacity)
@@ -280,16 +280,16 @@ function SilentRotate:setHunterName(hunter)
 
 end
 
-function SilentRotate:startHunterCooldown(hunter, endTimeOfCooldown, endTimeOfEffect, targetGUID, buffName)
+function LoathebRotate:startHunterCooldown(hunter, endTimeOfCooldown, endTimeOfEffect, targetGUID, buffName)
     if not endTimeOfCooldown or endTimeOfCooldown == 0 then
-        local cooldown = SilentRotate:getModeCooldown()
+        local cooldown = LoathebRotate:getModeCooldown()
         if cooldown then
             endTimeOfCooldown = GetTime() + cooldown
         end
     end
 
     if not endTimeOfEffect or endTimeOfEffect == 0 then
-        local effectDuration = SilentRotate:getModeEffectDuration()
+        local effectDuration = LoathebRotate:getModeEffectDuration()
         if effectDuration then
             endTimeOfEffect = GetTime() + effectDuration
         else
@@ -324,17 +324,17 @@ function SilentRotate:startHunterCooldown(hunter, endTimeOfCooldown, endTimeOfEf
 
     hunter.targetGUID = targetGUID
     hunter.buffName = buffName
-    if targetGUID and SilentRotate.db.profile.appendTarget then
-        SilentRotate:setHunterName(hunter)
+    if targetGUID and LoathebRotate.db.profile.appendTarget then
+        LoathebRotate:setHunterName(hunter)
         if buffName and endTimeOfEffect > GetTime() then
 
             -- Create a ticker to refresh the name on a regular basis, for as long as the target name is displayed
             if not hunter.nameRefreshTicker or hunter.nameRefreshTicker:IsCancelled() then
                 local nameRefreshInterval = 0.5
                 hunter.nameRefreshTicker = C_Timer.NewTicker(nameRefreshInterval, function()
-                    SilentRotate:setHunterName(hunter)
+                    LoathebRotate:setHunterName(hunter)
                     -- hunter.showingTarget is computed in the setHunterName() call; use this variable to tell when to stop refreshing
-                    if not hunter.showingTarget and not SilentRotate:getMode().buffCanReturn then
+                    if not hunter.showingTarget and not LoathebRotate:getMode().buffCanReturn then
                         hunter.nameRefreshTicker:Cancel()
                         hunter.nameRefreshTicker = nil
                     end
@@ -346,25 +346,25 @@ function SilentRotate:startHunterCooldown(hunter, endTimeOfCooldown, endTimeOfEf
                 hunter.nameRefreshTimer:Cancel()
             end
             hunter.nameRefreshTimer = C_Timer.NewTimer(endTimeOfEffect - GetTime() + 1, function()
-                SilentRotate:setHunterName(hunter)
+                LoathebRotate:setHunterName(hunter)
                 hunter.nameRefreshTimer = nil
             end)
         end
     end
 
     if hunter.buffName and hunter.endTimeOfEffect > GetTime() then
-        SilentRotate:trackHistoryBuff(hunter)
+        LoathebRotate:trackHistoryBuff(hunter)
     end
 end
 
 -- Lock/Unlock the mainFrame position
-function SilentRotate:lock(lock)
-    SilentRotate.db.profile.lock = lock
-    SilentRotate:applySettings()
+function LoathebRotate:lock(lock)
+    LoathebRotate.db.profile.lock = lock
+    LoathebRotate:applySettings()
 
     if (lock) then
-        SilentRotate:printMessage(L['WINDOW_LOCKED'])
+        LoathebRotate:printMessage(L['WINDOW_LOCKED'])
     else
-        SilentRotate:printMessage(L['WINDOW_UNLOCKED'])
+        LoathebRotate:printMessage(L['WINDOW_UNLOCKED'])
     end
 end

@@ -1,4 +1,4 @@
-local SilentRotate = select(2, ...)
+local LoathebRotate = select(2, ...)
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("PLAYER_LOGIN")
@@ -12,20 +12,20 @@ eventFrame:SetScript(
     "OnEvent",
     function(self, event, ...)
         if (event == "PLAYER_LOGIN") then
-            SilentRotate:init()
+            LoathebRotate:init()
             self:UnregisterEvent("PLAYER_LOGIN")
 
             -- Delayed raid update because raid data is unreliable at PLAYER_LOGIN
             C_Timer.After(5, function()
-                SilentRotate:updateRaidStatus()
+                LoathebRotate:updateRaidStatus()
             end)
         else
-            SilentRotate[event](SilentRotate, ...)
+            LoathebRotate[event](LoathebRotate, ...)
         end
     end
 )
 
-function SilentRotate:COMBAT_LOG_EVENT_UNFILTERED()
+function LoathebRotate:COMBAT_LOG_EVENT_UNFILTERED()
 
     -- @todo : Improve this with register / unregister event to save ressources
     -- Avoid parsing combat log when not able to use it
@@ -129,19 +129,19 @@ function SilentRotate:COMBAT_LOG_EVENT_UNFILTERED()
 end
 
 -- Raid group has changed
-function SilentRotate:GROUP_ROSTER_UPDATE()
+function LoathebRotate:GROUP_ROSTER_UPDATE()
     self:updateRaidStatus()
 end
 
 -- Player left combat
-function SilentRotate:PLAYER_REGEN_ENABLED()
+function LoathebRotate:PLAYER_REGEN_ENABLED()
     self:updateRaidStatus()
     self:callAllSecureFunctions()
 end
 
 -- Player changed its main target
-function SilentRotate:PLAYER_TARGET_CHANGED()
-    if (SilentRotate.db.profile.showWindowWhenTargetingBoss) then
+function LoathebRotate:PLAYER_TARGET_CHANGED()
+    if (LoathebRotate.db.profile.showWindowWhenTargetingBoss) then
         if (self:isTranqableBoss(UnitGUID("target")) and not UnitIsDead('target')) then
             self.mainFrame:Show()
         end
@@ -149,7 +149,7 @@ function SilentRotate:PLAYER_TARGET_CHANGED()
 end
 
 -- One of the auras of the unitID has changed (gained, faded)
-function SilentRotate:UNIT_AURA(unitID, isEcho)
+function LoathebRotate:UNIT_AURA(unitID, isEcho)
     if not self:isActive() then return end
 
     local mode = self:getMode()
@@ -209,7 +209,7 @@ function SilentRotate:UNIT_AURA(unitID, isEcho)
 end
 
 -- Register single unit events for a given hunter
-function SilentRotate:registerUnitEvents(hunter)
+function LoathebRotate:registerUnitEvents(hunter)
 
     hunter.frame:RegisterUnitEvent("PARTY_MEMBER_DISABLE", hunter.name)
     hunter.frame:RegisterUnitEvent("PARTY_MEMBER_ENABLE", hunter.name)
@@ -220,14 +220,14 @@ function SilentRotate:registerUnitEvents(hunter)
     hunter.frame:SetScript(
         "OnEvent",
         function(self, event, ...)
-            SilentRotate:updateHunterStatus(hunter)
+            LoathebRotate:updateHunterStatus(hunter)
         end
     )
 
 end
 
 -- Unregister single unit events for a given hunter
-function SilentRotate:unregisterUnitEvents(hunter)
+function LoathebRotate:unregisterUnitEvents(hunter)
     hunter.frame:UnregisterEvent("PARTY_MEMBER_DISABLE")
     hunter.frame:UnregisterEvent("PARTY_MEMBER_ENABLE")
     hunter.frame:UnregisterEvent("UNIT_HEALTH_FREQUENT")

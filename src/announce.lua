@@ -1,8 +1,8 @@
-local SilentRotate = select(2, ...)
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local LoathebRotate = select(2, ...)
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
 
-function SilentRotate:sendSpellAnnounceMessage(mode, spellName, fail, hunter, destName)
+function LoathebRotate:sendSpellAnnounceMessage(mode, spellName, fail, hunter, destName)
     local announceArg = ''
     if type(mode.announceArg) == 'string' then
         if mode.announceArg == 'destName' then
@@ -28,7 +28,7 @@ function SilentRotate:sendSpellAnnounceMessage(mode, spellName, fail, hunter, de
     self:sendAnnounceMessage(self.db.profile[announceKey], announceArg)
 end
 
-function SilentRotate:sendAuraAnnounceMessage(mode, spellName, hunter)
+function LoathebRotate:sendAuraAnnounceMessage(mode, spellName, hunter)
     local announceArg = ''
     if type(mode.announceArg) == 'string' then
         if mode.announceArg == 'destName' then
@@ -55,25 +55,25 @@ function SilentRotate:sendAuraAnnounceMessage(mode, spellName, hunter)
 end
 
 -- Send an annouce message to a given channel
-function SilentRotate:sendAnnounceMessage(message, targetName)
-    if SilentRotate.db.profile.enableAnnounces then
-        local channelType = SilentRotate.db.profile.channelType
-        local targetChannel = SilentRotate.db.profile.targetChannel
-        SilentRotate:sendMessage(message, targetName, channelType, targetChannel)
+function LoathebRotate:sendAnnounceMessage(message, targetName)
+    if LoathebRotate.db.profile.enableAnnounces then
+        local channelType = LoathebRotate.db.profile.channelType
+        local targetChannel = LoathebRotate.db.profile.targetChannel
+        LoathebRotate:sendMessage(message, targetName, channelType, targetChannel)
     end
 end
 
 -- Write the rotation to a given channel
-function SilentRotate:sendRotationMessage(message)
-    if SilentRotate.db.profile.enableAnnounces then
-        local channelType = SilentRotate.db.profile.rotationReportChannelType
-        local targetChannel = SilentRotate.db.profile.setupBroadcastTargetChannel
-        SilentRotate:sendMessage(message, nil, channelType, targetChannel)
+function LoathebRotate:sendRotationMessage(message)
+    if LoathebRotate.db.profile.enableAnnounces then
+        local channelType = LoathebRotate.db.profile.rotationReportChannelType
+        local targetChannel = LoathebRotate.db.profile.setupBroadcastTargetChannel
+        LoathebRotate:sendMessage(message, nil, channelType, targetChannel)
     end
 end
 
 -- Send a message to a given channel
-function SilentRotate:sendMessage(message, targetName, channelType, targetChannel)
+function LoathebRotate:sendMessage(message, targetName, channelType, targetChannel)
     local channelNumber = (channelType == "CHANNEL") and GetChannelName(targetChannel) or nil
     if targetName then
         message = string.format(message, targetName)

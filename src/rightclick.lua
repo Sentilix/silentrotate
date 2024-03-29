@@ -1,15 +1,15 @@
-local SilentRotate = select(2, ...)
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local LoathebRotate = select(2, ...)
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
 -- Enable/disable right click for all hunter frames
-function SilentRotate:enableRightClick(assignable)
-    for key,hunter in pairs(SilentRotate.hunterTable) do
-        SilentRotate:enableHunterFrameRightClick(hunter, assignable)
+function LoathebRotate:enableRightClick(assignable)
+    for key,hunter in pairs(LoathebRotate.hunterTable) do
+        LoathebRotate:enableHunterFrameRightClick(hunter, assignable)
     end
 end
 
 -- Enable or disable right click for one hunter frame
-function SilentRotate:enableHunterFrameRightClick(hunter, assignable)
+function LoathebRotate:enableHunterFrameRightClick(hunter, assignable)
     hunter.assignable = assignable
     hunter.frame:EnableMouse(hunter.assignable or hunter.movable)
     if hunter.frame.context then
@@ -20,7 +20,7 @@ function SilentRotate:enableHunterFrameRightClick(hunter, assignable)
 end
 
 -- Configure hunter frame right click behavior
-function SilentRotate:configureHunterFrameRightClick(hunter)
+function LoathebRotate:configureHunterFrameRightClick(hunter)
     hunter.frame:SetScript(
         "OnMouseUp",
         function(frame, button)
@@ -35,8 +35,8 @@ function SilentRotate:configureHunterFrameRightClick(hunter)
                     frame.context = nil
                 end
                 frame.context = CreateFrame("Frame", nil, frame, "UIDropDownMenuTemplate")
-                local mode = SilentRotate:getMode() -- @todo get hunter mode
-                local menu = SilentRotate:populateMenu(frame.hunter, frame, mode)
+                local mode = LoathebRotate:getMode() -- @todo get hunter mode
+                local menu = LoathebRotate:populateMenu(frame.hunter, frame, mode)
                 EasyMenu(menu, frame.context, "cursor", 0 , 0, "MENU");
             end
         end
@@ -50,7 +50,7 @@ end
 -- * or "MANA" to select mana users (independently of their spec)
 -- * or "REZ" to select classes who can resurrect (including druids)
 -- * ...or an array of strings to select multiple classes or roles
-function SilentRotate:doesPlayerFitAssignment(classFilename, role, assignmentType)
+function LoathebRotate:doesPlayerFitAssignment(classFilename, role, assignmentType)
     if type(assignmentType) == 'table' then
         for _, subtype in ipairs(assignmentType) do
             if self:doesPlayerFitAssignment(classFilename, role, subtype) then
@@ -90,7 +90,7 @@ end
 -- @param time   When the assignment is done. If nil, GetTime() is used
 -- The time is used to know detect false positives when blaming wrong targets
 -- Otherwise if 1) player casts spell, 2) assignment changes, then we'd blame
-function SilentRotate:assignPlayer(author, actor, target, modeName, timestamp)
+function LoathebRotate:assignPlayer(author, actor, target, modeName, timestamp)
     local mode = self:getMode(modeName)
     if not mode.assignment then
         mode.assignment = {}
@@ -149,7 +149,7 @@ function SilentRotate:assignPlayer(author, actor, target, modeName, timestamp)
 
                 function()
                     -- Condition function, return true to open dialog box
-                    local optionSuggestsToMatchFocus = SilentRotate.db.profile[modeName.."TrackFocus"]
+                    local optionSuggestsToMatchFocus = LoathebRotate.db.profile[modeName.."TrackFocus"]
                     local focusIsDifferentThanAssignment = UnitName("focus") ~= target
                     local hasSomeoneToFocus = target ~= nil -- Not interested in asking to "set focus to nobody"
                     return optionSuggestsToMatchFocus and focusIsDifferentThanAssignment and hasSomeoneToFocus
@@ -167,7 +167,7 @@ end
 
 -- Get the map of actors and targets
 -- key=actor, value=target
-function SilentRotate:getAssignmentTable(modeName)
+function LoathebRotate:getAssignmentTable(modeName)
     local mode = self:getMode(modeName)
 
     if mode and mode.assignment then
@@ -180,7 +180,7 @@ end
 
 -- Set the map of actors and targets
 -- This function is called typically when receiving a sync order from another player
-function SilentRotate:applyAssignmentConfiguration(assignment, sender, modeName)
+function LoathebRotate:applyAssignmentConfiguration(assignment, sender, modeName)
     if not assignment then
         -- A nil assignment may happen especially if the sender has an old version
         -- Please note that an empty table {} will not return now
@@ -219,13 +219,13 @@ end
 -- - those who don't are listed in a submenu "other players"
 -- The "other players" is not a submenu in dungeons because a 5-player list is short enough
 -- But they still are listed after the main players (i.e. main players appear on top)
-function SilentRotate:populateMenu(hunter, frame, mode)
+function LoathebRotate:populateMenu(hunter, frame, mode)
 
     local mainCandidates = {}
     local otherCandidates = {}
 
     local addCandidate = function(name, classFilename, role)
-        if SilentRotate:doesPlayerFitAssignment(classFilename, role, mode.assignable) then
+        if LoathebRotate:doesPlayerFitAssignment(classFilename, role, mode.assignable) then
             table.insert(mainCandidates,  { name = name, classFilename = classFilename, role = role })
         else
             table.insert(otherCandidates, { name = name, classFilename = classFilename, role = role })
@@ -276,7 +276,7 @@ function SilentRotate:populateMenu(hunter, frame, mode)
             text = menuText,
             checked = isAssigned,
             func = function(item)
-                SilentRotate:assignPlayer(UnitName("player"), hunter.name, assignment, mode.modeName)
+                LoathebRotate:assignPlayer(UnitName("player"), hunter.name, assignment, mode.modeName)
                 if frame.context then frame.context:Hide() end
             end
         })

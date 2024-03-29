@@ -1,48 +1,48 @@
-local SilentRotate = select(2, ...)
-local L = LibStub("AceLocale-3.0"):GetLocale("SilentRotate")
+local LoathebRotate = select(2, ...)
+local L = LibStub("AceLocale-3.0"):GetLocale("LoathebRotate")
 
 -- Create main window
-function SilentRotate:createMainFrame()
+function LoathebRotate:createMainFrame()
     local mainFrame = CreateFrame("Frame", 'mainFrame', UIParent)
 
-    mainFrame:SetWidth(SilentRotate.db.profile.windows[1].width)
-    mainFrame:SetHeight(SilentRotate.constants.rotationFramesBaseHeight * 2 + SilentRotate.constants.titleBarHeight + SilentRotate.constants.modeBarHeight)
+    mainFrame:SetWidth(LoathebRotate.db.profile.windows[1].width)
+    mainFrame:SetHeight(LoathebRotate.constants.rotationFramesBaseHeight * 2 + LoathebRotate.constants.titleBarHeight + LoathebRotate.constants.modeBarHeight)
     mainFrame:Show()
 
     mainFrame:RegisterForDrag("LeftButton")
     mainFrame:SetClampedToScreen(true)
     mainFrame:SetScript("OnDragStart", function() mainFrame:StartMoving() end)
 
-    mainFrame.windowIndex = SilentRotate.mainFrames and #(SilentRotate.mainFrames)+1 or 1
+    mainFrame.windowIndex = LoathebRotate.mainFrames and #(LoathebRotate.mainFrames)+1 or 1
 
     mainFrame:SetScript(
         "OnDragStop",
         function()
             mainFrame:StopMovingOrSizing()
 
-            local config = SilentRotate.db.profile.windows[mainFrame.windowIndex]
+            local config = LoathebRotate.db.profile.windows[mainFrame.windowIndex]
             config.point = 'TOPLEFT'
             config.y = mainFrame:GetTop()
             config.x = mainFrame:GetLeft()
         end
     )
 
-    if not SilentRotate.mainFrames then
-        SilentRotate.mainFrames = { mainFrame }
+    if not LoathebRotate.mainFrames then
+        LoathebRotate.mainFrames = { mainFrame }
     else
-        table.insert(SilentRotate.mainFrames, mainFrame)
-        SilentRotate.db.profile.windows[mainFrame.windowIndex] = SilentRotate.db.profile.windows[1]
+        table.insert(LoathebRotate.mainFrames, mainFrame)
+        LoathebRotate.db.profile.windows[mainFrame.windowIndex] = LoathebRotate.db.profile.windows[1]
     end
 
     return mainFrame
 end
 
 -- Create history window
-function SilentRotate:createHistoryFrame()
+function LoathebRotate:createHistoryFrame()
     local historyFrame = CreateFrame("Frame", 'mainFrame', UIParent)
 
-    historyFrame:SetWidth(SilentRotate.db.profile.history.width)
-    historyFrame:SetHeight(SilentRotate.db.profile.history.height)
+    historyFrame:SetWidth(LoathebRotate.db.profile.history.width)
+    historyFrame:SetHeight(LoathebRotate.db.profile.history.height)
     historyFrame:Show()
 
     historyFrame:RegisterForDrag("LeftButton")
@@ -54,26 +54,26 @@ function SilentRotate:createHistoryFrame()
         function()
             historyFrame:StopMovingOrSizing()
 
-            local config = SilentRotate.db.profile
+            local config = LoathebRotate.db.profile
             config.history.point = 'TOPLEFT'
             config.history.y = historyFrame:GetTop()
             config.history.x = historyFrame:GetLeft()
         end
     )
 
-    SilentRotate.historyFrame = historyFrame
+    LoathebRotate.historyFrame = historyFrame
     return historyFrame
 end
 
 -- Create Title frame
-function SilentRotate:createTitleFrame(baseFrame, subtitle)
+function LoathebRotate:createTitleFrame(baseFrame, subtitle)
     local titleFrame = CreateFrame("Frame", 'rotationFrame', baseFrame)
     titleFrame:SetPoint('TOPLEFT')
     titleFrame:SetPoint('TOPRIGHT')
-    titleFrame:SetHeight(SilentRotate.constants.titleBarHeight)
+    titleFrame:SetHeight(LoathebRotate.constants.titleBarHeight)
 
     titleFrame.texture = titleFrame:CreateTexture(nil, "BACKGROUND")
-    titleFrame.texture:SetColorTexture(SilentRotate.colors.darkGreen:GetRGB())
+    titleFrame.texture:SetColorTexture(LoathebRotate.colors.darkGreen:GetRGB())
     titleFrame.texture:SetAllPoints()
 
     titleFrame.text = titleFrame:CreateFontString(nil, "ARTWORK")
@@ -82,9 +82,9 @@ function SilentRotate:createTitleFrame(baseFrame, subtitle)
     titleFrame.text:SetShadowOffset(1,-1)
     titleFrame.text:SetPoint("LEFT",5,0)
     if subtitle then
-        titleFrame.text:SetText(string.format('SilentRotate - %s', subtitle))
+        titleFrame.text:SetText(string.format('LoathebRotate - %s', subtitle))
     else
-        titleFrame.text:SetText('SilentRotate')
+        titleFrame.text:SetText('LoathebRotate')
     end
     titleFrame.text:SetTextColor(1,1,1,1)
 
@@ -93,7 +93,7 @@ function SilentRotate:createTitleFrame(baseFrame, subtitle)
 end
 
 -- Create resizer for width and height
-function SilentRotate:createCornerResizer(baseFrame, windowConfig)
+function LoathebRotate:createCornerResizer(baseFrame, windowConfig)
     baseFrame:SetResizable(true)
 
     local resizer = CreateFrame("Button", nil, baseFrame, "PanelResizeButtonTemplate")
@@ -120,7 +120,7 @@ function SilentRotate:createCornerResizer(baseFrame, windowConfig)
 end
 
 -- Create resizers for width only
-function SilentRotate:createHorizontalResizer(baseFrame, windowConfig, side, backgroundFrame, dynamicBottomBackgroundFrame)
+function LoathebRotate:createHorizontalResizer(baseFrame, windowConfig, side, backgroundFrame, dynamicBottomBackgroundFrame)
     baseFrame:SetResizable(true)
 
     local resizer = CreateFrame("Frame", nil, baseFrame, BackdropTemplateMixin and "BackdropTemplate" or nil)
@@ -199,7 +199,7 @@ function SilentRotate:createHorizontalResizer(baseFrame, windowConfig, side, bac
             if baseFrame.dropHintFrame then
                 baseFrame.dropHintFrame:SetWidth(width - 10)
                 -- Hack: we know mode frame settings must be re-applied when there is a drophint
-                SilentRotate:applyModeFrameSettings(baseFrame, width)
+                LoathebRotate:applyModeFrameSettings(baseFrame, width)
             end
         end)
 
@@ -214,7 +214,7 @@ function SilentRotate:createHorizontalResizer(baseFrame, windowConfig, side, bac
 end
 
 -- Create title bar buttons for main frame
-function SilentRotate:createMainFrameButtons(baseFrame)
+function LoathebRotate:createMainFrameButtons(baseFrame)
     local buttons = {
         {
             texture = {
@@ -222,40 +222,40 @@ function SilentRotate:createMainFrameButtons(baseFrame)
                 pushed = 'Interface/Buttons/UI-Panel-MinimizeButton-Down',
                 highlight = 'Interface/Buttons/UI-Panel-MinimizeButton-Highlight',
             },
-            callback = SilentRotate.toggleDisplay,
+            callback = LoathebRotate.toggleDisplay,
             texCoord = {0.08, 0.9, 0.1, 0.9},
         },
         {
             texture = 'Interface/GossipFrame/BinderGossipIcon',
-            callback = SilentRotate.toggleSettings,
+            callback = LoathebRotate.toggleSettings,
             tooltip = L["BUTTON_SETTINGS"],
         },
         {
             texture = 'Interface/Buttons/UI-RefreshButton',
             callback = function()
-                    SilentRotate:updateRaidStatus()
-                    SilentRotate:resetRotation()
-                    SilentRotate:sendSyncOrderRequest()
+                    LoathebRotate:updateRaidStatus()
+                    LoathebRotate:resetRotation()
+                    LoathebRotate:sendSyncOrderRequest()
                 end,
             tooltip = L["BUTTON_RESET_ROTATION"],
         },
         {
             texture = 'Interface/Buttons/UI-GuildButton-MOTD-Up',
-            callback = SilentRotate.printRotationSetup,
+            callback = LoathebRotate.printRotationSetup,
             tooltip = L["BUTTON_PRINT_ROTATION"],
         },
         {
             texture = 'Interface/Buttons/UI-GuildButton-OfficerNote-Up',
-            callback = SilentRotate.toggleHistory,
+            callback = LoathebRotate.toggleHistory,
             tooltip = L["BUTTON_HISTORY"],
         },
     }
 
-    return SilentRotate:createButtons(baseFrame, buttons)
+    return LoathebRotate:createButtons(baseFrame, buttons)
 end
 
 -- Create title bar buttons for main frame
-function SilentRotate:createHistoryFrameButtons(baseFrame)
+function LoathebRotate:createHistoryFrameButtons(baseFrame)
     local buttons = {
         {
             texture = {
@@ -263,17 +263,17 @@ function SilentRotate:createHistoryFrameButtons(baseFrame)
                 pushed = 'Interface/Buttons/UI-Panel-MinimizeButton-Down',
                 highlight = 'Interface/Buttons/UI-Panel-MinimizeButton-Highlight',
             },
-            callback = SilentRotate.toggleHistory,
+            callback = LoathebRotate.toggleHistory,
             texCoord = {0.08, 0.9, 0.1, 0.9},
         },
         {
             texture = 'Interface/GossipFrame/BinderGossipIcon',
-            callback = SilentRotate.toggleSettings,
+            callback = LoathebRotate.toggleSettings,
             tooltip = L["BUTTON_SETTINGS"],
         },
         {
             texture = 'Interface/Buttons/UI-RefreshButton',
-            callback = SilentRotate.respawnHistory,
+            callback = LoathebRotate.respawnHistory,
             tooltip = L["BUTTON_RESPAWN_HISTORY"],
         },
         {
@@ -282,27 +282,27 @@ function SilentRotate:createHistoryFrameButtons(baseFrame)
                 pushed = 'Interface/Buttons/CancelButton-Down',
                 highlight = 'Interface/Buttons/CancelButton-Highlight',
             },
-            callback = SilentRotate.clearHistory,
+            callback = LoathebRotate.clearHistory,
             texCoord = {0.2, 0.8, 0.2, 0.8},
             tooltip = L["BUTTON_CLEAR_HISTORY"],
         },
     }
 
-    return SilentRotate:createButtons(baseFrame, buttons)
+    return LoathebRotate:createButtons(baseFrame, buttons)
 end
 
 -- Create title bar buttons
-function SilentRotate:createButtons(baseFrame, buttons)
+function LoathebRotate:createButtons(baseFrame, buttons)
     local position = 5
 
     for key, button in pairs(buttons) do
-        SilentRotate:createButton(baseFrame, position, button.texture, button.callback, button.texCoord, button.tooltip)
+        LoathebRotate:createButton(baseFrame, position, button.texture, button.callback, button.texCoord, button.tooltip)
         position = position + 15
     end
 end
 
 -- Create a single button in the title bar
-function SilentRotate:createButton(baseFrame, position, texture, callback, texCoord, tooltip)
+function LoathebRotate:createButton(baseFrame, position, texture, callback, texCoord, tooltip)
 
     local button = CreateFrame("Button", nil, baseFrame)
     button:SetPoint('RIGHT', -position, 0)
@@ -355,8 +355,8 @@ function SilentRotate:createButton(baseFrame, position, texture, callback, texCo
 end
 
 -- Create scroll frame with text button
-function SilentRotate:createTextFrame(baseFrame)
-    local constants = SilentRotate.constants.history
+function LoathebRotate:createTextFrame(baseFrame)
+    local constants = LoathebRotate.constants.history
     local textFrame = CreateFrame("ScrollingMessageFrame", nil, baseFrame)
 
     local margin = constants.margin
@@ -371,52 +371,52 @@ function SilentRotate:createTextFrame(baseFrame)
     textFrame:SetShadowOffset(1,-1)
     textFrame:SetJustifyH("LEFT")
 
-    textFrame:SetTimeVisible(SilentRotate.constants.history.defaultTimeVisible)
+    textFrame:SetTimeVisible(LoathebRotate.constants.history.defaultTimeVisible)
 
     baseFrame.textFrame = textFrame
     return textFrame
 end
 
 -- Create Mode frame
-function SilentRotate:createModeFrame(baseFrame)
+function LoathebRotate:createModeFrame(baseFrame)
     local modeFrame = CreateFrame("Frame", 'modeFrame', baseFrame)
     modeFrame:SetPoint('LEFT')
     modeFrame:SetPoint('RIGHT')
-    modeFrame:SetPoint('TOP', 0, -SilentRotate.constants.titleBarHeight)
-    modeFrame:SetHeight(SilentRotate.constants.modeBarHeight)
+    modeFrame:SetPoint('TOP', 0, -LoathebRotate.constants.titleBarHeight)
+    modeFrame:SetHeight(LoathebRotate.constants.modeBarHeight)
 
     modeFrame.texture = modeFrame:CreateTexture(nil, "BACKGROUND")
-    modeFrame.texture:SetColorTexture(SilentRotate.colors.darkBlue:GetRGB())
+    modeFrame.texture:SetColorTexture(LoathebRotate.colors.darkBlue:GetRGB())
     modeFrame.texture:SetAllPoints()
 
     baseFrame.modeFrame = modeFrame
     baseFrame.modeFrames = {}
-    local commonModeWidth = SilentRotate.db.profile.windows[1].width/3
+    local commonModeWidth = LoathebRotate.db.profile.windows[1].width/3
     local modeIndex = 0
-    for modeName, mode in pairs(SilentRotate.modes) do
-        SilentRotate:createSingleModeFrame(baseFrame, modeName, L["FILTER_SHOW_"..mode.modeNameUpper], modeIndex*commonModeWidth, (modeIndex+1)*commonModeWidth, SilentRotate.db.profile.currentMode == modeName)
+    for modeName, mode in pairs(LoathebRotate.modes) do
+        LoathebRotate:createSingleModeFrame(baseFrame, modeName, L["FILTER_SHOW_"..mode.modeNameUpper], modeIndex*commonModeWidth, (modeIndex+1)*commonModeWidth, LoathebRotate.db.profile.currentMode == modeName)
         modeIndex = modeIndex+1
     end
-    SilentRotate:applyModeFrameSettings(baseFrame)
+    LoathebRotate:applyModeFrameSettings(baseFrame)
 
     return modeFrame
 end
 
 -- Create single mode button
-function SilentRotate:createSingleModeFrame(baseFrame, modeName, text, minX, maxX, enabled)
-    local fontSize = SilentRotate.constants.modeFrameFontSize
-    local margin = SilentRotate.constants.modeFrameMargin
+function LoathebRotate:createSingleModeFrame(baseFrame, modeName, text, minX, maxX, enabled)
+    local fontSize = LoathebRotate.constants.modeFrameFontSize
+    local margin = LoathebRotate.constants.modeFrameMargin
     local modeFrame = CreateFrame("Frame", nil, baseFrame.modeFrame)
-    modeFrame:SetPoint('TOPLEFT', minX+margin, -(SilentRotate.constants.modeBarHeight-2*margin-fontSize)/2)
+    modeFrame:SetPoint('TOPLEFT', minX+margin, -(LoathebRotate.constants.modeBarHeight-2*margin-fontSize)/2)
     modeFrame:SetWidth(maxX-minX-2*margin)
-    modeFrame:SetHeight(SilentRotate.constants.modeBarHeight-2*margin)
+    modeFrame:SetHeight(LoathebRotate.constants.modeBarHeight-2*margin)
 
     -- Set Texture
     modeFrame.texture = modeFrame:CreateTexture(nil, "BACKGROUND")
     if enabled then
-        modeFrame.texture:SetColorTexture(SilentRotate.colors.blue:GetRGB())
+        modeFrame.texture:SetColorTexture(LoathebRotate.colors.blue:GetRGB())
     else
-        modeFrame.texture:SetColorTexture(SilentRotate.colors.darkBlue:GetRGB())
+        modeFrame.texture:SetColorTexture(LoathebRotate.colors.darkBlue:GetRGB())
     end
     modeFrame.texture:SetAllPoints()
 
@@ -433,10 +433,10 @@ function SilentRotate:createSingleModeFrame(baseFrame, modeName, text, minX, max
     modeFrame:SetScript(
         "OnMouseDown",
         function()
-            SilentRotate:activateMode(modeName, baseFrame)
-            SilentRotate:updateRaidStatus()
-            SilentRotate:resetRotation()
-            SilentRotate:sendSyncOrderRequest()
+            LoathebRotate:activateMode(modeName, baseFrame)
+            LoathebRotate:updateRaidStatus()
+            LoathebRotate:resetRotation()
+            LoathebRotate:sendSyncOrderRequest()
         end
     )
 
@@ -446,9 +446,9 @@ function SilentRotate:createSingleModeFrame(baseFrame, modeName, text, minX, max
 end
 
 -- Setup mode frame appearance, based on user-defined settings
-function SilentRotate:applyModeFrameSettings(mainFrame, width)
+function LoathebRotate:applyModeFrameSettings(mainFrame, width)
     local modeFrameMapping = {}
-    for modeName, mode in pairs(SilentRotate.modes) do
+    for modeName, mode in pairs(LoathebRotate.modes) do
         table.insert(modeFrameMapping, {
             modeName = modeName,
             visibilityFlag = modeName.."ModeButton",
@@ -459,7 +459,7 @@ function SilentRotate:applyModeFrameSettings(mainFrame, width)
     -- First, count how many buttons should be visible
     local nbButtonsVisible = 0
     for _, mapping in ipairs(modeFrameMapping) do
-        local isVisible = SilentRotate.db.profile[mapping.visibilityFlag]
+        local isVisible = LoathebRotate.db.profile[mapping.visibilityFlag]
         if (isVisible) then nbButtonsVisible = nbButtonsVisible+1 end
     end
 
@@ -489,21 +489,21 @@ function SilentRotate:applyModeFrameSettings(mainFrame, width)
         modeFrameText:Hide()
     end
 
-    local commonModeWidth = (width or SilentRotate.db.profile.windows[1].width)/nbButtonsVisible
+    local commonModeWidth = (width or LoathebRotate.db.profile.windows[1].width)/nbButtonsVisible
     local minX = 0
     local maxX = commonModeWidth
-    local fontSize = SilentRotate.constants.modeFrameFontSize
-    local margin = SilentRotate.constants.modeFrameMargin
+    local fontSize = LoathebRotate.constants.modeFrameFontSize
+    local margin = LoathebRotate.constants.modeFrameMargin
 
     for _, mapping in ipairs(modeFrameMapping) do
         local modeName = mapping.modeName
-        local isVisible = SilentRotate.db.profile[mapping.visibilityFlag]
+        local isVisible = LoathebRotate.db.profile[mapping.visibilityFlag]
         local mode = mainFrame.modeFrames[modeName]
         if (isVisible) then
             mode:Show()
-            local text = SilentRotate.db.profile[mapping.textVariable]
+            local text = LoathebRotate.db.profile[mapping.textVariable]
             mode.text:SetText(text)
-            mode:SetPoint('TOPLEFT', minX+margin, -(SilentRotate.constants.modeBarHeight-2*margin-fontSize)/2)
+            mode:SetPoint('TOPLEFT', minX+margin, -(LoathebRotate.constants.modeBarHeight-2*margin-fontSize)/2)
             mode:SetWidth(maxX-minX-2*margin)
             minX = maxX
             maxX = maxX + commonModeWidth
@@ -514,7 +514,7 @@ function SilentRotate:applyModeFrameSettings(mainFrame, width)
 end
 
 -- Create background frame
-function SilentRotate:createBackgroundFrame(baseFrame, offsetY, height, noAnchorBottom, frameName)
+function LoathebRotate:createBackgroundFrame(baseFrame, offsetY, height, noAnchorBottom, frameName)
     if not frameName then frameName = 'backgroundFrame' end
 
     local backgroundFrame = CreateFrame("Frame", frameName, baseFrame)
@@ -535,20 +535,20 @@ function SilentRotate:createBackgroundFrame(baseFrame, offsetY, height, noAnchor
 end
 
 -- Create rotation frame
-function SilentRotate:createRotationFrame(baseFrame)
-    local offsetY = SilentRotate.constants.titleBarHeight+SilentRotate.constants.modeBarHeight
-    local height = SilentRotate.constants.rotationFramesBaseHeight
+function LoathebRotate:createRotationFrame(baseFrame)
+    local offsetY = LoathebRotate.constants.titleBarHeight+LoathebRotate.constants.modeBarHeight
+    local height = LoathebRotate.constants.rotationFramesBaseHeight
     local noAnchorBottom = true
-    return SilentRotate:createBackgroundFrame(baseFrame, offsetY, height, noAnchorBottom, 'rotationFrame')
+    return LoathebRotate:createBackgroundFrame(baseFrame, offsetY, height, noAnchorBottom, 'rotationFrame')
 end
 
 -- Create backup frame
-function SilentRotate:createBackupFrame(baseFrame, rotationFrame)
+function LoathebRotate:createBackupFrame(baseFrame, rotationFrame)
     -- Backup frame
-    local backupFrame = CreateFrame("Frame", 'backupFrame', baseFrame)
+    local LoathebRotate = CreateFrame("Frame", 'backupFrame', baseFrame)
     backupFrame:SetPoint('TOPLEFT', rotationFrame, 'BOTTOMLEFT', 0, 0)
     backupFrame:SetPoint('TOPRIGHT', rotationFrame, 'BOTTOMRIGHT', 0, 0)
-    backupFrame:SetHeight(SilentRotate.constants.rotationFramesBaseHeight)
+    backupFrame:SetHeight(LoathebRotate.constants.rotationFramesBaseHeight)
 
     -- Set Texture
     backupFrame.texture = backupFrame:CreateTexture(nil, "BACKGROUND")
@@ -567,41 +567,41 @@ function SilentRotate:createBackupFrame(baseFrame, rotationFrame)
 end
 
 -- Create single hunter frame
-function SilentRotate:createHunterFrame(hunter, parentFrame, mainFrame)
+function LoathebRotate:createHunterFrame(hunter, parentFrame, mainFrame)
     hunter.frame = CreateFrame("Frame", nil, parentFrame)
-    hunter.frame:SetHeight(SilentRotate.constants.hunterFrameHeight)
+    hunter.frame:SetHeight(LoathebRotate.constants.hunterFrameHeight)
     hunter.frame.GUID = hunter.GUID
 
     -- Set Texture
     hunter.frame.texture = hunter.frame:CreateTexture(nil, "ARTWORK")
-    hunter.frame.texture:SetTexture("Interface\\AddOns\\SilentRotate\\textures\\steel.tga")
+    hunter.frame.texture:SetTexture("Interface\\AddOns\\LoathebRotate\\textures\\steel.tga")
     hunter.frame.texture:SetAllPoints()
 
     -- Tooltip
-    hunter.frame:SetScript("OnEnter", SilentRotate.onHunterEnter)
-    hunter.frame:SetScript("OnLeave", SilentRotate.onHunterLeave)
+    hunter.frame:SetScript("OnEnter", LoathebRotate.onHunterEnter)
+    hunter.frame:SetScript("OnLeave", LoathebRotate.onHunterLeave)
 
     -- Set Text
     hunter.frame.text = hunter.frame:CreateFontString(nil, "ARTWORK")
     hunter.frame.text:SetPoint("LEFT",5,0)
-    SilentRotate:setHunterName(hunter)
+    LoathebRotate:setHunterName(hunter)
 
-    SilentRotate:createCooldownFrame(hunter)
-    SilentRotate:createBlindIconFrame(hunter)
-    SilentRotate:configureHunterFrameDrag(hunter, mainFrame)
-    SilentRotate:configureHunterFrameRightClick(hunter)
+    LoathebRotate:createCooldownFrame(hunter)
+    LoathebRotate:createBlindIconFrame(hunter)
+    LoathebRotate:configureHunterFrameDrag(hunter, mainFrame)
+    LoathebRotate:configureHunterFrameRightClick(hunter)
 
-    if (SilentRotate.enableDrag) then
-        SilentRotate:enableHunterFrameDragging(hunter, true)
+    if (LoathebRotate.enableDrag) then
+        LoathebRotate:enableHunterFrameDragging(hunter, true)
     end
-    local mode = SilentRotate:getMode() -- @todo get mode of hunter frame
+    local mode = LoathebRotate:getMode() -- @todo get mode of hunter frame
     if mode and mode.assignable then
-        SilentRotate:enableHunterFrameRightClick(hunter, true)
+        LoathebRotate:enableHunterFrameRightClick(hunter, true)
     end
 end
 
 -- Create the cooldown frame
-function SilentRotate:createCooldownFrame(hunter)
+function LoathebRotate:createCooldownFrame(hunter)
 
     -- Frame
     hunter.frame.cooldownFrame = CreateFrame("Frame", nil, hunter.frame)
@@ -618,7 +618,7 @@ function SilentRotate:createCooldownFrame(hunter)
     local statusBar = CreateFrame("StatusBar", nil, hunter.frame.cooldownFrame)
     statusBar:SetAllPoints()
     statusBar:SetMinMaxValues(0,1)
-    statusBar:SetStatusBarTexture("Interface\\AddOns\\SilentRotate\\textures\\steel.tga")
+    statusBar:SetStatusBarTexture("Interface\\AddOns\\LoathebRotate\\textures\\steel.tga")
     statusBar:GetStatusBarTexture():SetHorizTile(false)
     statusBar:GetStatusBarTexture():SetVertTile(false)
     statusBar:SetStatusBarColor(1, 0, 0)
@@ -629,7 +629,7 @@ function SilentRotate:createCooldownFrame(hunter)
         function(self, elapsed)
             self.statusBar:SetValue(GetTime())
 
-            local hunter = SilentRotate:getHunter(self:GetParent().GUID)
+            local hunter = LoathebRotate:getHunter(self:GetParent().GUID)
             if hunter and hunter.expirationTime and GetTime() > hunter.expirationTime then
                 self:Hide()
             end
@@ -646,7 +646,7 @@ function SilentRotate:createCooldownFrame(hunter)
 end
 
 -- Create the blind icon frame
-function SilentRotate:createBlindIconFrame(hunter)
+function LoathebRotate:createBlindIconFrame(hunter)
 
     -- Frame
     hunter.frame.blindIconFrame = CreateFrame("Frame", nil, hunter.frame)
@@ -658,21 +658,19 @@ function SilentRotate:createBlindIconFrame(hunter)
     -- Set Texture
     hunter.frame.blindIconFrame.texture = hunter.frame.blindIconFrame:CreateTexture(nil, "ARTWORK")
     local blind_filename = ""
---  local relativeHeight = GetScreenHeight()*UIParent:GetEffectiveScale()
     local relativeHeight = select(2,GetCurrentScaledResolution())*UIParent:GetEffectiveScale()
     if relativeHeight <= 1080 then
         blind_filename = "blind_32px.tga"
     else
         blind_filename = "blind_256px.tga"
     end
-    hunter.frame.blindIconFrame.texture:SetTexture("Interface\\AddOns\\SilentRotate\\textures\\"..blind_filename)
+    hunter.frame.blindIconFrame.texture:SetTexture("Interface\\AddOns\\LoathebRotate\\textures\\"..blind_filename)
     hunter.frame.blindIconFrame.texture:SetAllPoints()
---    hunter.frame.blindIconFrame.texture:SetTexCoord(0.15, 0.85, 0.15, 0.85);
     hunter.frame.blindIconFrame.texture:SetTexCoord(0, 1, 0, 1);
 
     -- Tooltip
-    hunter.frame.blindIconFrame:SetScript("OnEnter", SilentRotate.onBlindIconEnter)
-    hunter.frame.blindIconFrame:SetScript("OnLeave", SilentRotate.onBlindIconLeave)
+    hunter.frame.blindIconFrame:SetScript("OnEnter", LoathebRotate.onBlindIconEnter)
+    hunter.frame.blindIconFrame:SetScript("OnLeave", LoathebRotate.onBlindIconLeave)
 
     -- Drag & drop handlers
     hunter.frame.blindIconFrame:SetScript("OnDragStart", function(self, ...)
@@ -686,8 +684,8 @@ function SilentRotate:createBlindIconFrame(hunter)
 end
 
 -- Blind icon tooltip show
-function SilentRotate.onBlindIconEnter(frame)
-    if (SilentRotate.db.profile.showBlindIconTooltip) then
+function LoathebRotate.onBlindIconEnter(frame)
+    if (LoathebRotate.db.profile.showBlindIconTooltip) then
         GameTooltip:SetOwner(frame, "ANCHOR_BOTTOMRIGHT")
         GameTooltip:SetText(L["TOOLTIP_PLAYER_WITHOUT_ADDON"])
         GameTooltip:AddLine(L["TOOLTIP_MAY_RUN_OUDATED_VERSION"])
@@ -697,19 +695,19 @@ function SilentRotate.onBlindIconEnter(frame)
 end
 
 -- Blind icon tooltip hide
-function SilentRotate.onBlindIconLeave(frame, motion)
+function LoathebRotate.onBlindIconLeave(frame, motion)
     GameTooltip:Hide()
 end
 
 -- Hunter frame tooltip show
-function SilentRotate.onHunterEnter(frame)
-    local mode = SilentRotate:getMode()
+function LoathebRotate.onHunterEnter(frame)
+    local mode = LoathebRotate:getMode()
     if mode and mode.tooltip then
         local tooltip
         if type(mode.tooltip) == 'string' then
             tooltip = mode.tooltip
         elseif type(mode.tooltip) == 'function' then
-            local hunter = SilentRotate:getHunter(frame.GUID)
+            local hunter = LoathebRotate:getHunter(frame.GUID)
             tooltip = mode.tooltip(mode, hunter)
         end
         if tooltip then
@@ -719,17 +717,17 @@ function SilentRotate.onHunterEnter(frame)
         end
 
     else
-        local hunter = SilentRotate:getHunter(frame.GUID)
+        local hunter = LoathebRotate:getHunter(frame.GUID)
         if hunter then
             local getAssignmentAndTarget = function(hunter)
                 local assignmentText, targetText
 
-                local assignment, _ = SilentRotate:getHunterAssignment(hunter)
+                local assignment, _ = LoathebRotate:getHunterAssignment(hunter)
                 if assignment then
                     assignmentText = string.format(L['TOOLTIP_ASSIGNED_TO'], assignment)
                 end
 
-                local lastTarget, buffMode = SilentRotate:getHunterTarget(hunter)
+                local lastTarget, buffMode = LoathebRotate:getHunterTarget(hunter)
                 if lastTarget and lastTarget ~= '' and buffMode and buffMode ~= 'not_a_buff' then
                     if buffMode == 'has_buff' then
                         targetText = string.format(L['TOOLTIP_EFFECT_CURRENT'], lastTarget)
@@ -771,9 +769,9 @@ function SilentRotate.onHunterEnter(frame)
                         end
                         if hrEffect then
                             -- The effect is not real if the buff was lost
-                            local _, buffMode = SilentRotate:getHunterTarget(hunter)
+                            local _, buffMode = LoathebRotate:getHunterTarget(hunter)
                             if buffMode == 'buff_lost' then
-                                local mode = SilentRotate:getMode() -- @todo get mode of hunter
+                                local mode = LoathebRotate:getMode() -- @todo get mode of hunter
                                 if mode and not mode.buffCanReturn then
                                     hrEffect = nil
                                 end
@@ -832,7 +830,7 @@ function SilentRotate.onHunterEnter(frame)
 end
 
 -- Hunter frame tooltip hide
-function SilentRotate.onHunterLeave(frame, motion)
+function LoathebRotate.onHunterLeave(frame, motion)
     GameTooltip:Hide() -- @TODO hide only if it was shown
     if frame.tooltipRefreshTicker then
         frame.tooltipRefreshTicker:Cancel()

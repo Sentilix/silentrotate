@@ -1,7 +1,7 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("SilentRotate", "frFR", false, false)
+local L = LibStub("AceLocale-3.0"):NewLocale("LoathebRotate", "frFR", false, false)
 if not L then return end
-L["LOADED_MESSAGE"] = "SilentRotate chargé, utilisez /silentrotate pour les options"
-L["TRANQ_WINDOW_HIDDEN"] = "SilentRotate window hidden. Use /silentrotate toggle to get it back"
+L["LOADED_MESSAGE"] = "LoathebRotate chargé, utilisez /LoathebRotate pour les options"
+L["TRANQ_WINDOW_HIDDEN"] = "LoathebRotate window hidden. Use /LoathebRotate toggle to get it back"
 
     -- Buttons
 L["BUTTON_SETTINGS"] = "Paramètres"
@@ -14,7 +14,7 @@ L["BUTTON_CLEAR_HISTORY"] = "Effacer"
     -- Settings
 L["SETTING_GENERAL"] = "Général"
 L["SETTING_GENERAL_REPORT"] = "Merci de signaler tout bug rencontré sur"
-L["SETTING_GENERAL_DESC"] = "Nouveau : SilentRotate peut maintenant jouer un son pour vous avertir quand vous devez tranq ! Plusieurs optiosn d'affichage ont été ajoutée pour rendre l'addon moins intrusif"
+L["SETTING_GENERAL_DESC"] = "Nouveau : LoathebRotate peut maintenant jouer un son pour vous avertir quand vous devez tranq ! Plusieurs optiosn d'affichage ont été ajoutée pour rendre l'addon moins intrusif"
 
 L["LOCK_WINDOW"] = "Verrouiller la position de la fênetre"
 L["LOCK_WINDOW_DESC"] = "Verrouiller la position de la fênetre"
@@ -24,8 +24,8 @@ L["DO_NOT_SHOW_WHEN_JOINING_RAID"] = "Ne pas afficher la fenêtre principale lor
 L["DO_NOT_SHOW_WHEN_JOINING_RAID_DESC"] = "Ne pas afficher la fenêtre principale lorsque vous rejoignez un raid"
 L["SHOW_WHEN_TARGETING_BOSS"] = "Afficher la fenêtre principale lorsque vous ciblez un boss tranquilisable"
 L["SHOW_WHEN_TARGETING_BOSS_DESC"] = "Afficher la fenêtre principale lorsque vous ciblez un boss tranquilisable"
-L["WINDOW_LOCKED"] = "SilentRotate: Fenêtre verrouillée"
-L["WINDOW_UNLOCKED"] = "SilentRotate: Fenêtre déverrouillée"
+L["WINDOW_LOCKED"] = "LoathebRotate: Fenêtre verrouillée"
+L["WINDOW_UNLOCKED"] = "LoathebRotate: Fenêtre déverrouillée"
 
 L["TEST_MODE_HEADER"] = "Test mode"
 L["ENABLE_ARCANE_SHOT_TESTING"] = "Activer/désactiver le mode test"
@@ -217,13 +217,13 @@ L["HISTORY_ASSIGN_PLAYER"] = "%s a affecté %s à se focaliser sur %s."
 L["HISTORY_ASSIGN_NOBODY"] = "%s a retiré l'affectation de %s."
 
     --- Icons
-L["DISPLAY_BLIND_ICON"] = "Afficher une icône pour les joueurs qui n'ont pas installé SilentRotate"
+L["DISPLAY_BLIND_ICON"] = "Afficher une icône pour les joueurs qui n'ont pas installé LoathebRotate"
 L["DISPLAY_BLIND_ICON_DESC"] = "Ajoute une icône \"aveugle\" sur le joueur pour indiquer qu'il n'utilise pas l'addon. Il/elle ne connaitra pas la rotation affichée et ses actions ne seront pas synchronisées si le joueur se retrouve loin des utilisateurs de l'addon"
 L["DISPLAY_BLIND_ICON_TOOLTIP"] = "Afficher l'info-bulle pour l'icône \"aveugle\""
 L["DISPLAY_BLIND_ICON_TOOLTIP_DESC"] = "En désactivant cette option vous désactivez l'info-bulle tout en conservant l'icône"
 
     --- Tooltips
-L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "Ce joueur n'utilise pas SilentRotate"
+L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "Ce joueur n'utilise pas LoathebRotate"
 L["TOOLTIP_MAY_RUN_OUDATED_VERSION"] = "Ou possède une version obsolète, inférieure à 0.7.0"
 L["TOOLTIP_DISABLE_SETTINGS"] = "(Vous pouvez désactiver l'icône et/ou l'info-bulle dans les paramètres)"
 L["TOOLTIP_EFFECT_REMAINING"] = "Durée de l'effet : %s"
@@ -247,7 +247,7 @@ L["DIALOG_ASSIGNMENT_CHANGE_FOCUS"] = "Changer le focus"
 
     --- Notifications
 L["UPDATE_AVAILABLE"] = "Une nouvelle version est disponible, veuillez mettre à jour pour profiter des dernières fonctionnalités."
-L["BREAKING_UPDATE_AVAILABLE"] = "Une mise à jour IMPORTANTE est disponible, vous DEVEZ mettre à jour le plus rapidement possible ! Des conflits sont possibles entre vous et les joueurs qui ont installé la version à jour de SilentRotate."
+L["BREAKING_UPDATE_AVAILABLE"] = "Une mise à jour IMPORTANTE est disponible, vous DEVEZ mettre à jour le plus rapidement possible ! Des conflits sont possibles entre vous et les joueurs qui ont installé la version à jour de LoathebRotate."
 
 L["VERSION_CHECK"] = "## Vérification de version ##"
 L["VERSION_UNDETECTABLE"] = "Pas installé ou antérieur à 0.7.0"

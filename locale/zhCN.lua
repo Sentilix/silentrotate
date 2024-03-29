@@ -1,7 +1,7 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("SilentRotate", "zhCN", false, false)
+local L = LibStub("AceLocale-3.0"):NewLocale("LoathebRotate", "zhCN", false, false)
 if not L then return end
-L["LOADED_MESSAGE"] = "SilentRotate 已加载, 输入 /silentrotate 进入设置"
-L["TRANQ_WINDOW_HIDDEN"] = "SilentRotate 窗口隐藏. 输入 /silentrotate toggle 显示窗口"
+L["LOADED_MESSAGE"] = "LoathebRotate 已加载, 输入 /LoathebRotate 进入设置"
+L["TRANQ_WINDOW_HIDDEN"] = "LoathebRotate 窗口隐藏. 输入 /LoathebRotate toggle 显示窗口"
 
     -- Buttons
 L["BUTTON_SETTINGS"] = "Settings"
@@ -14,7 +14,7 @@ L["BUTTON_CLEAR_HISTORY"] = "Clear"
     -- Settings
 L["SETTING_GENERAL"] = "一般"
 L["SETTING_GENERAL_REPORT"] = "请报告问题: "
-L["SETTING_GENERAL_DESC"] = "新内容: SilentRotate 当你需要施放你的宁神射击时，现在将播放一个声音!也有一些显示选项，可以减少插件得干扰。"
+L["SETTING_GENERAL_DESC"] = "新内容: LoathebRotate 当你需要施放你的宁神射击时，现在将播放一个声音!也有一些显示选项，可以减少插件得干扰。"
 
 L["LOCK_WINDOW"] = "锁定窗口"
 L["LOCK_WINDOW_DESC"] = "锁定窗口"
@@ -24,8 +24,8 @@ L["DO_NOT_SHOW_WHEN_JOINING_RAID"] = "加入团队时隐藏窗口"
 L["DO_NOT_SHOW_WHEN_JOINING_RAID_DESC"] = "如果您不想每次加入团队时都显示窗口，请选中此选项"
 L["SHOW_WHEN_TARGETING_BOSS"] = "当你的目标是一个可宁神的Boss时，显示窗口"
 L["SHOW_WHEN_TARGETING_BOSS_DESC"] = "当你的目标是一个可宁神的Boss时，显示窗口"
-L["WINDOW_LOCKED"] = "SilentRotate: 窗口已隐藏"
-L["WINDOW_UNLOCKED"] = "SilentRotate: 窗口已锁定"
+L["WINDOW_LOCKED"] = "LoathebRotate: 窗口已隐藏"
+L["WINDOW_UNLOCKED"] = "LoathebRotate: 窗口已锁定"
 
 L["TEST_MODE_HEADER"] = "测试模式"
 L["ENABLE_ARCANE_SHOT_TESTING"] = "切换测试模式"
@@ -189,7 +189,7 @@ L["SETTING_SOUNDS"] = "音效"
 L["ENABLE_NEXT_TO_TRANQ_SOUND"] = "当下一个宁神射击是您时，播放提示音"
 L["ENABLE_TRANQ_NOW_SOUND"] = "当您需要立即宁神射击时，播放提示音"
 L["TRANQ_NOW_SOUND_CHOICE"] = "选择要用于“宁神射击”提示的声音"
-L["DBM_SOUND_WARNING"] = "DBM在激怒时播放的'flag taken'提示音，可能导致您无法听到SilentRotate的提示音。建议选择一个响亮的提示音，或者在DBM中禁用激怒的警告。"
+L["DBM_SOUND_WARNING"] = "DBM在激怒时播放的'flag taken'提示音，可能导致您无法听到LoathebRotate的提示音。建议选择一个响亮的提示音，或者在DBM中禁用激怒的警告。"
 
     --- History
 L["SETTING_HISTORY"] = "History"
@@ -217,13 +217,13 @@ L["HISTORY_ASSIGN_PLAYER"] = "%s assigned %s to focus on %s."
 L["HISTORY_ASSIGN_NOBODY"] = "%s un-assigned %s."
 
     --- Icons
-L["DISPLAY_BLIND_ICON"] = "Show an icon for players without SilentRotate"
-L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other SilentRotate user."
+L["DISPLAY_BLIND_ICON"] = "Show an icon for players without LoathebRotate"
+L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other LoathebRotate user."
 L["DISPLAY_BLIND_ICON_TOOLTIP"] = "Show the blind icon tooltip"
 L["DISPLAY_BLIND_ICON_TOOLTIP_DESC"] = "You can disable this options to disable the tooltip while still having the icon"
 
     --- Tooltips
-L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use SilentRotate"
+L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use LoathebRotate"
 L["TOOLTIP_MAY_RUN_OUDATED_VERSION"] = "Or runs an outdated version, older than 0.7.0"
 L["TOOLTIP_DISABLE_SETTINGS"] = "(You can disable the icon and/or the tooltip in the settings)"
 L["TOOLTIP_EFFECT_REMAINING"] = "Effect remaining: %s"
@@ -247,7 +247,7 @@ L["DIALOG_ASSIGNMENT_CHANGE_FOCUS"] = "Change Focus"
 
     --- Notifications
 L["UPDATE_AVAILABLE"] = "A new version is available, please update to get the latest features."
-L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! SilentRotate may not work correctly between you and up-to-date players."
+L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! LoathebRotate may not work correctly between you and up-to-date players."
 
 L["VERSION_CHECK"] = "## Version check ##"
 L["VERSION_UNDETECTABLE"] = "Not installed or older than 0.7.0"

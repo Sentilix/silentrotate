@@ -1,7 +1,7 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("SilentRotate", "zhTW", false, false)
+local L = LibStub("AceLocale-3.0"):NewLocale("LoathebRotate", "zhTW", false, false)
 if not L then return end
-L["LOADED_MESSAGE"] = "SilentRotate 已加載, 輸入 /silentrotate 進入設定"
-L["TRANQ_WINDOW_HIDDEN"] = "SilentRotate 窗口隱藏. 輸入 /silentrotate toggle 顯示窗口"
+L["LOADED_MESSAGE"] = "LoathebRotate 已加載, 輸入 /LoathebRotate 進入設定"
+L["TRANQ_WINDOW_HIDDEN"] = "LoathebRotate 窗口隱藏. 輸入 /LoathebRotate toggle 顯示窗口"
 
     -- Buttons
 L["BUTTON_SETTINGS"] = "Settings"
@@ -14,7 +14,7 @@ L["BUTTON_CLEAR_HISTORY"] = "Clear"
     -- Settings
 L["SETTING_GENERAL"] = "General"
 L["SETTING_GENERAL_REPORT"] = "請報告問題: "
-L["SETTING_GENERAL_DESC"] = "New : SilentRotate will now play a sound when you need to shoot your tranqshot ! There are also few more display options to make the addon less intrusive."
+L["SETTING_GENERAL_DESC"] = "New : LoathebRotate will now play a sound when you need to shoot your tranqshot ! There are also few more display options to make the addon less intrusive."
 
 L["LOCK_WINDOW"] = "鎖定窗口"
 L["LOCK_WINDOW_DESC"] = "鎖定窗口"
@@ -24,8 +24,8 @@ L["DO_NOT_SHOW_WHEN_JOINING_RAID"] = "加入團隊時隱藏窗口"
 L["DO_NOT_SHOW_WHEN_JOINING_RAID_DESC"] = "如果您不想每次加入團隊時都顯示窗口，請選中此選項"
 L["SHOW_WHEN_TARGETING_BOSS"] = "當妳的目標是壹個可寧神的Boss時，顯示窗口"
 L["SHOW_WHEN_TARGETING_BOSS_DESC"] = "當妳的目標是壹個可寧神的Boss時，顯示窗口"
-L["WINDOW_LOCKED"] = "SilentRotate: 窗口已隱藏"
-L["WINDOW_UNLOCKED"] = "SilentRotate: 窗口已鎖定"
+L["WINDOW_LOCKED"] = "LoathebRotate: 窗口已隱藏"
+L["WINDOW_UNLOCKED"] = "LoathebRotate: 窗口已鎖定"
 
 L["TEST_MODE_HEADER"] = "測試模式"
 L["ENABLE_ARCANE_SHOT_TESTING"] = "切換測試模式"
@@ -189,7 +189,7 @@ L["SETTING_SOUNDS"] = "音效"
 L["ENABLE_NEXT_TO_TRANQ_SOUND"] = "當下壹個寧神射擊是您時，播放提示音"
 L["ENABLE_TRANQ_NOW_SOUND"] = "當您需要立即寧神射擊時，播放提示音"
 L["TRANQ_NOW_SOUND_CHOICE"] = "選擇要用於“寧神射擊”提示的聲音"
-L["DBM_SOUND_WARNING"] = "DBM在瘋狂時播放的'flag taken'提示音，可能導致您無法聽到SilentRotate的提示音。建議選擇壹個響亮的提示音，或者在DBM中禁用瘋狂的警告。"
+L["DBM_SOUND_WARNING"] = "DBM在瘋狂時播放的'flag taken'提示音，可能導致您無法聽到LoathebRotate的提示音。建議選擇壹個響亮的提示音，或者在DBM中禁用瘋狂的警告。"
 
     --- History
 L["SETTING_HISTORY"] = "History"
@@ -217,13 +217,13 @@ L["HISTORY_ASSIGN_PLAYER"] = "%s assigned %s to focus on %s."
 L["HISTORY_ASSIGN_NOBODY"] = "%s un-assigned %s."
 
     --- Icons
-L["DISPLAY_BLIND_ICON"] = "Show an icon for players without SilentRotate"
-L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other SilentRotate user."
+L["DISPLAY_BLIND_ICON"] = "Show an icon for players without LoathebRotate"
+L["DISPLAY_BLIND_ICON_DESC"] = "Adds a blind icon next to the player names who have not installed the addon. S/he will not be aware of the rotation and won't be synced if s/he's far from every other LoathebRotate user."
 L["DISPLAY_BLIND_ICON_TOOLTIP"] = "Show the blind icon tooltip"
 L["DISPLAY_BLIND_ICON_TOOLTIP_DESC"] = "You can disable this options to disable the tooltip while still having the icon"
 
     --- Tooltips
-L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use SilentRotate"
+L["TOOLTIP_PLAYER_WITHOUT_ADDON"] = "This player does not use LoathebRotate"
 L["TOOLTIP_MAY_RUN_OUDATED_VERSION"] = "Or runs an outdated version, older than 0.7.0"
 L["TOOLTIP_DISABLE_SETTINGS"] = "(You can disable the icon and/or the tooltip in the settings)"
 L["TOOLTIP_EFFECT_REMAINING"] = "Effect remaining: %s"
@@ -247,7 +247,7 @@ L["DIALOG_ASSIGNMENT_CHANGE_FOCUS"] = "Change Focus"
 
     --- Notifications
 L["UPDATE_AVAILABLE"] = "A new version is available, please update to get the latest features."
-L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! SilentRotate may not work correctly between you and up-to-date players."
+L["BREAKING_UPDATE_AVAILABLE"] = "A new, CRITICAL update is available, you MUST update AS SOON AS possible! LoathebRotate may not work correctly between you and up-to-date players."
 
 L["VERSION_CHECK"] = "## Version check ##"
 L["VERSION_UNDETECTABLE"] = "Not installed or older than 0.7.0"
