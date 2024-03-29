@@ -545,7 +545,7 @@ end
 -- Create backup frame
 function LoathebRotate:createBackupFrame(baseFrame, rotationFrame)
     -- Backup frame
-    local LoathebRotate = CreateFrame("Frame", 'backupFrame', baseFrame)
+    local backupFrame = CreateFrame("Frame", 'backupFrame', baseFrame)
     backupFrame:SetPoint('TOPLEFT', rotationFrame, 'BOTTOMLEFT', 0, 0)
     backupFrame:SetPoint('TOPRIGHT', rotationFrame, 'BOTTOMRIGHT', 0, 0)
     backupFrame:SetHeight(LoathebRotate.constants.rotationFramesBaseHeight)

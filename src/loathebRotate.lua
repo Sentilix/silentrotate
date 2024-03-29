@@ -92,7 +92,7 @@ function LoathebRotate:printPrefixedMessage(msg)
     LoathebRotate:printMessage(LoathebRotate:colorText(LoathebRotate.constants.printPrefix) .. msg)
 end
 
-SLASH_LOATHEBROTATE1 = "/lr"
+SLASH_LOATHEBROTATE1 = "/loa"  -- because /lr conflicts with LootReserve
 SLASH_LOATHEBROTATE2 = "/loathebrotate"
 SlashCmdList["LOATHEBROTATE"] = function(msg)
     local _, _, cmd, args = string.find(msg, "%s?(%w+)%s?(.*)")

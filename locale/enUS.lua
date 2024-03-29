@@ -1,7 +1,7 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("LoathebRotate", "enUS", true, false)
 if not L then return end
 L["LOADED_MESSAGE"] = "LoathebRotate loaded, type /LoathebRotate for options"
-L["TRANQ_WINDOW_HIDDEN"] = "LoathebRotate window hidden. Use /LoathebRotate toggle to get it back"
+L["TRANQ_WINDOW_HIDDEN"] = "LoathebRotate window hidden. Use /loathebrotate toggle to get it back"
 
     -- Buttons
 L["BUTTON_SETTINGS"] = "Settings"
